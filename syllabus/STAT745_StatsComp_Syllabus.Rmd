@@ -3,7 +3,7 @@ title: "STAT 745 Statistical Computing"
 author: "AG Schissler"
 date: "Spring 2021"
 output: 
-  html_vignette:
+  html_document:
     toc: yes
 ---
 
@@ -17,21 +17,22 @@ output:
 
 # Description
 
-This course introduces Bayesian statistics to a technical audience. Early on, we focus on the logic behind Bayesian statistics, including the mathematical formalization of updating beliefs under uncertainty. Then we describe Bayesian methods for well-known probability models and compare these methods to classical (frequentist) alternatives. Topics include Bayes' Theorem, prior specification, Bayesian inference for discrete and continuous univariate random variables, and linear regression. We'll implement methods analytically and using software such as Minitab, R, and Stan.
-
-The latter portions of the course focus on implementing more advanced Bayesian methods through modern computational techniques to sample posterior distributions including Markov Chain Monte Carlo (MCMC) and Hamiltonian Monte Carlo (HMC). The aim will be to provide the concepts and technical skills to conduct a realistic Bayesian data analysis. 
 
 # Catalog Description
-Statistical inference using Bayes' Theorem. Topics include posterior analysis for continuous and discrete random variables, prior specification, Bayesian regression, multivariate inference, and posterior sampling through Markov Chain Monte Carlo.
+
+Computing using statistical software. Resampling and simulation: bootstrap, Monte Carlo, and Markov chain methods. Numerical inference for non-standard models. Bayesian inference. Advanced graphics
 
 # Course Pre-requisites
-STAT 352 or STAT 467/667 or with instructor approval. STAT 445/645 is a suggested preparation.
+
+STAT 667 or STAT 754 or STAT 726; Recommended Preparation: STAT 645; MATH 330.
 
 # Catalog Student Learning Outcomes
 
-* Students will be able to demonstrate understanding of the concepts that underlie Bayesian inference and compare the results to frequentist alternatives.
-* Students will be able to conduct Bayesian inference analytically and interpret the results.
-* Students will be able to perform a Bayesian analysis using professional statistical packages.
+Upon completion of this course, students will be able to:  
+
+1. organize and present information in graphical and numerical forms to support concise, comprehensible, and scientifically defensible written conclusions/knowledge to research problems.  
+2. create computational solutions to answer statistical questions for traditional and non-standard models using a high-level programming language.  
+3. organize computational research findings in a professional report suitable for presentation to a variety of audiences  
 
 # Textbooks
 
