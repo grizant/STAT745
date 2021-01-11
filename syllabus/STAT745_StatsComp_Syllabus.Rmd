@@ -1,46 +1,107 @@
 ---
-title: "STAT 745 Statistical Computing"
-author: "AG Schissler"
-date: "Spring 2021"
+title: "STAT 745: Computational Methods in Statistics"
+semester: "Spring 2021"
+instructor: 'Alfred "Grant" Schissler, Ph.D.'
+left_col:
+  - field: "Email"
+    value: "aschissler@unr.edu"
+  - field: "Office Phone"
+    value: "(775) 784-4661"
+  - field: "Office Location"
+    value: "DMS 224"
+  - field: "Office Hours"
+    value: "TBD"
+  
+right_col:
+  - field: "Web"
+    value: "<a href='https://www.grantschissler.com'>www.grantschissler.com</a>"
+  - field: "Class Location"
+    value: "Zoom / AB 110"
+  - field: "Class Hours"
+    value: "TuTh 4:30pm to 5:45pm"
 output: 
   html_document:
-    toc: yes
+    css: style.css
+    template: template.html
+    self_contained: true
+    toc: true
+    toc_depth: 1
 ---
 
-# Basic Information
+```{r setup, include=FALSE, eval=F}
+knitr::opts_chunk$set(echo = TRUE)
+## https://slides.yihui.org/2019-rstudio-conf-pagedown.html#1
+## rmarkdown::draft(file = 'STAT699-FA20-syllabus.Rmd', template = 'html-paged', package = 'pagedown', edit = FALSE)
+## xaringan::inf_mr('STAT699-FA20-syllabus.Rmd')
+## wordcountaddin::word_count('STAT699-FA20-syllabus.Rmd')
+mon <- as.Date("2020-08-24")
+# fri <- as.Date("2016-01-08")
+advdate <- function(obj, adv) {
+ tmon <- obj + 7*(adv-1)
+ tfri <- obj + 4 + 7*(adv-1)
+ tmon <- format(tmon, format="%m/%d")
+ tfri <- format(tfri, format="%m/%d")
+ zadv <- sprintf("%02d", adv)
+ tmp <- paste("Week ",zadv,sep='',", ", tmon," - ",tfri)
+ return(tmp)
+}
+```
 
-* Room number: DMS 106
-* Meeting times: TuTh 4:30pm to 5:45pm.
-* Contact information: [mailto:aschissler@unr.edu](aschissler@unr.edu), 775-784-4661 (office)
-* Office room number: DMS 224
-* Office hours: MoTu 4-5pm and by appointment
+# Course Description
 
-# Description
+Techniques of advanced computational statistics. 
+Numerical optimization and integration pertinent for statistical calculations; simulation and Monte Carlo methods including Markov chain Monte Carlo (MCMC); bootstrapping; smoothing/density estimation; and other modern topics.
+Computing using statistical software. Resampling and simulation: bootstrap, Monte Carlo, and Markov chain methods. Numerical inference for non-standard models. Bayesian inference. Advanced graphics.
 
+*Instructor's role*
 
-# Catalog Description
+- Help explain and guide student understanding and skill development.
+- Organize the course structure and assignments.
+- Lead weekly class discussions.
+- Evaluate student work and provide feedback.
 
-Computing using statistical software. Resampling and simulation: bootstrap, Monte Carlo, and Markov chain methods. Numerical inference for non-standard models. Bayesian inference. Advanced graphics
+*Student's role*
 
-# Course Pre-requisites
+- Complete the readings before the week's discussion meeting.
+- Submit completed assignments on time.
+- Participate in discussions. 
+- Prepare for and complete course exams.
+
+# Course Prerequisites
 
 STAT 667 or STAT 754 or STAT 726; Recommended Preparation: STAT 645; MATH 330.
 
-# Catalog Student Learning Outcomes
+# Student Learning Outcomes
 
 Upon completion of this course, students will be able to:  
 
 1. organize and present information in graphical and numerical forms to support concise, comprehensible, and scientifically defensible written conclusions/knowledge to research problems.  
 2. create computational solutions to answer statistical questions for traditional and non-standard models using a high-level programming language.  
-3. organize computational research findings in a professional report suitable for presentation to a variety of audiences  
+3. organize computational research findings in a professional report suitable for presentation to a variety of audiences.  
 
 # Textbooks
 
-## Required 
+*Required text*
 
-Rizzo
+*Statistical Computing with R*, Second Edition, by Maria L. RIZZO.
+[Textbook website](https://www.routledge.com/Statistical-Computing-with-R-Second-Edition/Rizzo/p/book/9781466553323)
 
-## Supplemental texts
+**MAKE SURE TO GET THE 2nd EDITION**
+
+*Supplemental texts*.
+
+Classical Introduction to `R` programming:  
+https://cran.r-project.org/doc/contrib/Owen-TheRGuide.pdf
+
+Modern best practices for coding and reporting `R` analyses:  
+*R for data science: import, tidy, transform, visualize, and model data*, Hadley WICKHAM and Garrett GROLEMUND.
+[Online textbook](https://r4ds.had.co.nz/)
+
+# Attendance
+
+Students are expected to attend class.
+If important circumstances prevent this, it is the student's responsibility to find out what was covered in class, what was assigned for reading or homework, and what special announcements (if any) were made.
+"Excessive absence" in this class will be construed to be absence from more than 10 percent of the scheduled class sessions, whether excused or unexcused.
 
 # Assignments
 
