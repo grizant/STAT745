@@ -1,0 +1,134 @@
+---
+title: "Welcome to Computational Methods in Statistics (STAT 745)"
+author: "AG Schissler"
+date: "26 Jan 2021 (*updated: `r Sys.Date()`)*"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(scales)
+library(tidyverse)
+```
+
+## I. Start-of-class work
+
+Let's discuss:
+
+## What are the major goals of statistical inference?
+
+## How do computation techinques fit into those goals?
+
+## II. Getting to know our community
+
+Please introduce yourself (briefly) to the class by telling us:
+
+1) Name (what you liked to be called)
+2) Major
+3) Professional goals
+4) A hobby or interest you have.
+
+### Instructor: A. Grant Schissler, PhD
+
+- teaching experience: 6 years of high schools teaching, >6 years at higher Ed teaching
+- education: BS in Applied Math, MS in Applied Stat, PhD in Statistics
+- research interests: Developing stats methods for personalized medicine, statistical computing, Bayesian modeling, clustering, high-dimensional data, large scale hypothesis testing, simulation, multivariate analysis, limited data analyses
+- other interests: being a dog dad, reading, hiking, tennis, running, video games
+
+### Reciprocal interview
+
+#### Questions for you:
+
+1) What are your goals for the course?  
+2) What is your best outcome imagined for the course?  
+3) What is your worst outcome imagined for the course?  
+4) What is the most likely outcome imagined for the course (prediction)?  
+5) What can I do to help you learn best?
+
+#### Questions for me?
+
+Please, please, ask anything on your mind (about the class) --- anxieties, hopes, policies, procedures, anything.
+
+### Take away
+
+Assume good will among everyone here. **Ask Questions** and **Work Together** --- these are the most important reasons for class time.
+
+## III. Course expectations and learning outcomes
+
+### Course goals and caveats
+
+- To introduce fundamental techniques/ideas in modern statistical computing
+- Through building an active-learning community (us).
+- Classes are designed to engage and require you to think, let passively sit and absorb.
+
+#### Scope
+
+- The course follows Rizzo 2019 closely.  
+- You are expected to know basic probability, statistics, algebra, calculus, and linear algebra.
+- You will have to perform some symbolic manipulation (basic proof writing).
+- Programming is required. This should not be your first programming experience.
+- We will use `R` and `rmarkdown` with $\LaTeX$ embedded to complete problem sets.
+- Extensive derivations may be submitted by scanned handwriting but this is discouraged in general.
+
+#### Not happy? Talk with me
+
+- Ff I'm ever not meeting your learning goals or other issue, just talk with me.
+- It saddens me to see evaluations at the end that indicate problems I could have helped had I known.
+- It doesn't help you or me to keep issues to yourself.
+
+### Estimated time commitment
+
+- Class participation: 2.5 hours/week.  
+- Readings: 3 hours/week.  
+- Problem Sets: 3 hours/week.  
+- Midterms: 2 hours total (2 hour x 1 exam)  
+- Final Exam: 6 hours total (6 hours x 1 exam)  
+
+$(8, 14)$ hours a week is a reasonable interval for weekly hours.
+
+Let me know if you are spending more time than this. Or much less.
+
+### Syllabus
+
+Let me open up `RStudio` and render the syllabus.
+
+1. Alone. Please read the syllabus and list/mark 5 most important things.
+2. Together. Share with the whole group.
+
+### Course resources
+
+#### Canvas (WebCampus)
+
+- Course announcements
+- Official assignments and due dates
+- Gradebook management
+- Secure file submissions
+- Secure file sharing
+- Preferred way to message the instructor
+
+#### Mastering `R` and `RStudio`
+
+https://education.rstudio.com/learn/beginner/
+
+https://education.rstudio.com/learn/intermediate/
+
+https://education.rstudio.com/learn/expert/
+
+#### Github
+
+Clone and enjoy quick access to the files I make. Note this is a new prep and I'll develop materials as we go. Sorry no forks.
+
+```{bash clone745, eval=F}
+git clone git@github.com:grizant/STAT745.git
+```
+
+https://github.com/grizant/STAT745
+
+## V. Closing . 3-2-1
+
+- 3 next actions you need to take
+- 2 things you learned
+- 1 thing you are looking forward to in the class.
+
+Share with the class.
