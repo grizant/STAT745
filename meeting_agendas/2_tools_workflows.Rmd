@@ -1,0 +1,25 @@
+---
+title: "Tool and Workflows Ch. 1"
+author: "AG Schissler"
+date: "27 Jan 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+library(tidyverse)
+## library(rstanarm)
+## options(mc.cores = parallel::detectCores() - 1)
+set.seed(02162021)
+## xaringan::inf_mr('ctrin_talk2021.rmd')
+## system( 'cp ~/bib/CP3.bib ../.' )
+```
+
+# i. Start-of-class work
+
+
+
+## Discuss the following random experiment:
