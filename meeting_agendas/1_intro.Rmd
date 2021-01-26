@@ -7,8 +7,6 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(readxl)
-library(scales)
 library(tidyverse)
 ```
 
@@ -16,9 +14,8 @@ library(tidyverse)
 
 Let's discuss:
 
-## What are the major goals of statistical inference?
-
-## How do computation techinques fit into those goals?
+- *What are the major goals of statistical inference?*
+- *How do you think computational techinques can help with these aims*?
 
 ## II. Getting to know our community
 
@@ -28,8 +25,9 @@ Please introduce yourself (briefly) to the class by telling us:
 2) Major
 3) Professional goals
 4) A hobby or interest you have.
+5) Your level of experience in `R` / `rmarkdown`
 
-### Instructor: A. Grant Schissler, PhD
+### Instructor: Alfred "Grant" Schissler, Ph.D.
 
 - teaching experience: 6 years of high schools teaching, >6 years at higher Ed teaching
 - education: BS in Applied Math, MS in Applied Stat, PhD in Statistics
@@ -38,17 +36,7 @@ Please introduce yourself (briefly) to the class by telling us:
 
 ### Reciprocal interview
 
-#### Questions for you:
-
-1) What are your goals for the course?  
-2) What is your best outcome imagined for the course?  
-3) What is your worst outcome imagined for the course?  
-4) What is the most likely outcome imagined for the course (prediction)?  
-5) What can I do to help you learn best?
-
-#### Questions for me?
-
-Please, please, ask anything on your mind (about the class) --- anxieties, hopes, policies, procedures, anything.
+Please, please, ask anything on your mind (about the class/my teaching style) --- anxieties, hopes, policies, procedures, anything.
 
 ### Take away
 
@@ -124,6 +112,12 @@ git clone git@github.com:grizant/STAT745.git
 ```
 
 https://github.com/grizant/STAT745
+
+Github resources for the textbook:
+
+```{bash cloneGit, eval=F, include=T}
+git clone https://github.com/mariarizzo/SCR.git
+```
 
 ## V. Closing . 3-2-1
 
