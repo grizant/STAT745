@@ -1,5 +1,5 @@
 ---
-title: "Tool and Workflows Ch. 1"
+title: "Introduction to statistical computing in `R` (Ch. 1)"
 author: "AG Schissler"
 date: "27 Jan 2021 (*updated: `r Sys.Date()`)*"
 output:
@@ -7,7 +7,6 @@ output:
     widescreen: true
     smaller: true
 ---
-
 
 ```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
 library(tidyverse)
@@ -18,8 +17,43 @@ set.seed(02162021)
 ## system( 'cp ~/bib/CP3.bib ../.' )
 ```
 
-# i. Start-of-class work
+# 1. Introductory remarks on statistical computing
 
+## 1.1 Statistical computing
 
+- some Rizzo points
+- some of my points
 
-## Discuss the following random experiment:
+# 2. Introduction to `R` 
+
+## The `R` computing environment
+
+## Getting started with `R` and `Rstudio`
+
+## Basic syntax
+
+## Using the `R` online help system
+
+# 3. Basic use of `R`
+
+## Distributions and statistical tests
+
+## Functions
+
+## Arrays, data frames, lists
+
+## Formulas for shorthand regression specification
+
+# 4. Data viz, project management, and workflow/report generation
+
+## Graphics
+
+## `ggplot`
+
+## Workspace and files
+
+## Using scripts
+
+## Using packages
+
+## Using `rmarkdown` and `knitr`
