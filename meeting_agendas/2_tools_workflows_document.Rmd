@@ -3,9 +3,7 @@ title: "Introduction to statistical computing in `R` (Ch. 1)"
 author: "AG Schissler"
 date: "28 Jan 2021 (*updated: `r Sys.Date()`)*"
 output:
-  ioslides_presentation:
-    widescreen: true
-    smaller: true
+  html_document
 ---
 
 ```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
