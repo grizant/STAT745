@@ -12,7 +12,7 @@ output:
 ```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
 library(tidyverse)
 library(printr)
-## xaringan::inf_mr('3_prob_stat_review1.rmd')
+## xaringan::inf_mr('3_prob_stat_review1_slides.rmd')
 ## str(knitr::opts_chunk$get())
 ```
 
@@ -20,29 +20,89 @@ library(printr)
 
 # i. Admin
 
-## Any items?
+## Problem Set 1 details and rubric
+
+https://unr.canvaslms.com/courses/63835/assignments/766606
+
+## Any questions about course administration/last lecture?
+
+Please ask now.
+
+## Today's plan
+
+- Let's go through ch. 2 and I'll make comments.  
+- Please contribute questions, comments, etc.
 
 # I. Prob review
 
-## overall comments
+## Course Prerequisites and expected student preparation
+
+- STAT 667 or STAT 754 or STAT 726.  
+- Recommended Preparation: STAT 645; MATH 330.  
+- How did this chapter read for you?  
+
 
 ## 2.1 Random variables and probability
+
+- Pretty standard definitions.  
+- joint probability $P( A \cap B )$ notated as $P( AB )$.  
+- If $X$ and $Y$ are independent, then $Cov(X,Y)=\rho(X,Y)=0$. But the converse is not true in general.   
+- An important special case is that for **normal** rv's if $Cov(X,Y)=\rho(X,Y)=0$ then $X$ and $Y$ are independent. (p. 41).
 
 # II. Discrete
 
 ## 2.2 Some discrete distributions
 
+- notice the support of the alternative formulation of geometric.  
+- briefly discuss the techniques used in Examples 2.1 and 2.2.  
+
+## Be sure to check what parameterization `R` is using
+
+```{r geom}
+?dgeom
+```
+
 # III. Continuous
 
 ## 2.3 Some continuous distributions
+
+```{r norm}
+?dnorm
+```
+
+## continuous examples
+
+- Discuss Example 2.3  
+- Discuss Example 2.4
 
 # IV. Multivariate distributions 
 
 ## 2.4 Multivariate normal
 
+- powerful, flexible framework for correlated data modeling
+
+## efficient, multicore multivariate normal simulation
+
+```{r mvnfast}
+library(mvnfast)
+help(package=mvnfast)
+```
+
+## `mvnfast` random mvn vectors
+
+```{r rmvn}
+example(rmvn)
+```
+
 # V. Limit Theorems
 
 ## Limit theorems
+
+## Relationships among prob distributions
+
+Let's look at this and discuss:
+
+https://en.wikipedia.org/wiki/Relationships_among_probability_distributions
 
 # Closing
 
