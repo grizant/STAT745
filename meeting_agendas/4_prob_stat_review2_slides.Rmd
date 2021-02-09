@@ -1,0 +1,153 @@
+---
+title: "Probability and Statistics Review (Ch. 2)"
+subtitle: "Part II"
+author: "AG Schissler"
+date: "4 Feb 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('4_prob_stat_review2_slides.rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin
+
+## schedule review
+
+Let's review the schedule and place today's learning in context.
+
+## Today's plan
+
+- Let's go through ch. 2 and I'll make comments, provide additional info/links, etc.
+- Please contribute questions and comments
+
+# I. Limit Theorems
+
+- Sample means have good statistical properties
+- provide probabilistic convergence 
+
+## Laws of large numbers
+
+- p.50-51.
+
+## Central Limit Theorem
+
+- p. 51
+
+# II. Statistics
+
+## Notation for statistics
+
+- $F_X(x) = P(X \leq x)$.  
+- $S^2$ denotes the unbiased estimator, divided by $(n-1)$ instead of MLE of $n$, of $\sigma^2$.
+
+## empirical distribution function
+
+- Seek to estimate $F_X(x) = P(X \leq x)$.  
+- estimated as the proportion of points in the desired interval (up to the upper bound $x$).
+- `quantile()` function in `R`
+
+## Bias and mean squared error (MSE)
+
+- *unbiased* versus *asymptotically unbiased*  
+- quantification of bias of a statistic $\hat{\theta}_n$: $bias(\hat{\theta}_n) := E(\hat{\theta}_n) - \theta$.
+- bias in estimators of variance discussion on p.52-53.
+- MSE(\hat{\theta}) = $Bias^2$ + $Variance$. quadratic loss function. can be generalized or selected differently for problem at hand.
+- Standard error (SE).
+- SE of sample mean.
+- variance of ecdf.
+- variance of sample quantile Eqn. 2.14.
+
+## Methods of moments
+
+- one of the simplest estimation schemes
+- discuss for general $k$.
+
+## Likelihood function
+
+- a core modeling framework that frequentist and Bayesians can both agree on.  
+- Discuss why to compute with the log likelihood (better dynamic range, sum vs product).
+
+## Maximum Likelihood estimation
+
+- discussion of many useful properties ( invariance property, asymptotic normality)  
+From https://en.wikipedia.org/wiki/Maximum_likelihood_estimation::
+
+* Consistency: the sequence of MLEs converges in probability to the value being estimated.  
+* Functional Invariance: If ${\displaystyle {\hat {\theta }}}$ is the maximum likelihood estimator for ${\displaystyle \theta }$, and if ${\displaystyle g(\theta )}$ is any transformation of ${\displaystyle \theta }$, then the maximum likelihood estimator for ${\displaystyle \alpha =g(\theta )}$ is ${\displaystyle {\hat {\alpha }}=g({\hat {\theta }})}$.  
+* Efficiency, i.e. it achieves the Cramér–Rao lower bound when the sample size tends to infinity. This means that no consistent estimator has lower asymptotic mean squared error than the MLE (or other estimators attaining this bound), which also means that MLE has asymptotic normality.
+
+- pseudo-MLE (https://en.wikipedia.org/wiki/Quasi-maximum_likelihood_estimate)
+
+# III. Bayes' Theorem and Bayesian Statistics
+
+## Law of total probability
+
+- show figure from Bolstad & Curran.
+
+## Bayes` Theorem
+
+## Bayesian statistics
+
+## further reading
+
+For gentle intro with philosophy:
+*Introduction to Bayesian Statistics*, 3rd edition, by William M. BOLSTAD and James M. CURRAN.
+[Textbook website](https://www.wiley.com/en-us/Introduction+to+Bayesian+Statistics%2C+3rd+Edition-p-9781118091562)
+
+Good Grad level intro Bayesian:
+*A First Course in Bayesian Statistical Methods* by Peter Hoff.
+https://pdhoff.github.io/book/
+
+*Bayesian Ideas and Data Analysis* by Christensen et al.
+https://www.routledge.com/Bayesian-Ideas-and-Data-Analysis-An-Introduction-for-Scientists-and-Statisticians/Christensen-Johnson-Branscum-Hanson/p/book/9781439803547
+
+Excellent Introduction to applied Bayesian modeling motivated by information theory with HMC:
+*Statistical Rethinking*, 2nd edition, Richard MCELREATH
+[Textbook website](https://xcelab.net/rm/statistical-rethinking/)
+
+Standard Bayesian reference textbook:  
+*Bayesian Data Analysis*, 3rd edition by Andrew GELMAN et al.
+[Textbook website](http://www.stat.columbia.edu/~gelman/book/)
+
+## good packages to learn Bayesian
+
+- `rethinking`
+- `bolstad`
+
+## high-powered general purpose samplers and tools
+
+### HMC 
+
+- `stan`, `rstanarm`, `brms`, `loo`
+- only core support is one core per chain, limited scaleability.
+
+### High-performance (GPU and multicore).
+- `greta`
+
+### older but useful
+
+- `jags`
+- `bugs`
+
+# IV. Markov Chains
+
+## definitions and notation
+
+- p. 57-58.
+
+## example 2.7
+
+# Closing
+
+- Questions about content?
+- Any questions about course administration?
+- Students share something you learned today.
