@@ -1,0 +1,157 @@
+---
+title: "Methods for Generating Random Variables (Ch. 3)"
+author: "AG Schissler"
+date: "9 Feb 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 02092021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('5_MarkovChains_ch3.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin & Startup
+
+## schedule review / Problem Set 1 due Friday
+
+- Let's review the schedule and place today's learning in context.  
+- Please complete Problem Set 1, due Friday. 
+- Call `set.seed(02122021)` before any random number generation and do not set other seeds.
+
+## Today's plan
+
+- Let's do a random uniform sampling simulation and data viz
+- Discuss Markov Chains to finish Ch. 2 
+- Begin Ch. 3 Methods for Generating Random variables
+
+*Please contribute questions and comments*
+
+# I. Simulating and visualizing sampling standard uniform
+
+```{r runifTrueHist}
+n <- 100
+u <- runif( n = n )
+MASS::truehist( data = u, nbins = 10 )
+```
+
+## `apply` and list operators
+
+```{r varyN}
+nVec <- seq( 10, 80, by = 10 )
+resList <- sapply( nVec, runif )
+## put into long format data frame for ggplot
+datList <- lapply( resList, function(u) {
+    return( data.frame( n = length(u) , u ) )
+})
+resDat <- do.call( "rbind", datList )
+resDat$n <- factor(resDat$n)
+```
+
+## ggplot histogram faceting
+
+```{r facetRunif}
+p0 <- ggplot( resDat, aes( x = u ) )
+p1 <- p0 + geom_histogram( aes( y = ..density.. ), bins = 8 ) 
+p1 + facet_wrap( . ~ n, nrow = 2 ) 
+```
+
+## ggplot histogram 2 faceting
+
+```{r facetRunif2}
+p0 <- ggplot( resDat, aes( x = u ) )
+p1 <- p0 + geom_histogram( aes( y = ..density.. ), bins = 8, boundary = min(resDat$u) )
+p1 + facet_wrap( . ~ n, nrow = 2 ) 
+```
+
+# II. Markov Chains
+
+## definitions and notation
+
+- p. 57-58.
+
+## Example: using Monte Carlo to find an invariant distribution
+
+Consider a disease model with 3 stages. Stage 1 is healthy, Stage 2 is mild disease, and Stage 3 is severe disease. Healthy individuals remain healthy with probability 0.99 and develop mild disease with prob 0.01. Individuals with mild disease become healthy with prob 0.5, stay mild with prob 0.4, and become severely ill with prob 0.1. Finally those with severe disease stay severely sick with prob 0.75 and progress to mild status with prob 0.25.
+
+This setting describes a Markov chain with $n=3$ states. The transition matrix is given by
+
+$$
+  P =
+  \left[ {\begin{array}{ccc}
+   0.99 & 0.01 & 0.00 \\
+   0.50 & 0.40 & 0.10 \\
+   0.00 & 0.25 & 0.75 \\
+  \end{array} } \right]
+$$
+
+## Markov chain code 1
+
+We'll simulate two individuals for 10000 steps: one who starts healthy and one who begins with severe disease.
+
+```{r markovChain}
+simreps <- 1e5
+P <- matrix(data = c(0.99, 0.01, 0, 0.5, 0.4, 0.1, 0, 0.25, 0.75), nrow = 3, byrow = TRUE)
+n <- nrow(P)
+X <- numeric(simreps)
+```
+
+## Healthy person to start
+
+```{r markovChain2}
+## for a healthy person at time 1
+X[1] <- 1
+for (t in 1:(simreps-1)) {
+    X[t + 1] <- sample(x = 1:n, size = 1, prob = P[X[t], ])
+}
+table(X)
+table(X) / length(X)
+```
+
+## For a severly ill person at time 1
+
+```{r markovChain3}
+X[1] <- 3
+for (t in 1:(simreps-1)) {
+    X[t + 1] <- sample(x = 1:n, size = 1, prob = P[X[t], ])
+}
+table(X)
+table(X) / length(X)
+```
+
+# III. Begin Ch. 3: Intro, Inverse Transform Method, Accept-Reject, Transformation Methods
+
+## 3.1 Introduction
+
+- sampling discrete uniform via `sample`
+- sampling continuous uniform via `runif` and other `r<distr>` calls.
+- Discuss Table 3.1.
+
+## 3.2 Inverse Transform method
+
+- Theorem 3.1 proof discussion.
+- very useful in practice when you are something easy to sample from and quantile function (inverse CDF).
+- e.g., NORTA algorithm (will discuss more during multivariate simulation 11 Feb 2021).
+
+## 3.3 Accept-reject
+
+- First let's talk about the how.
+- match the support and you want a high rate of acceptance for efficiency.
+- More on the why. Do you all underestand the arguments made?
+
+## 3.4 Transformation methods
+
+- Recall all the relationships between probability distributions.
+- Those relationships can be leveraged in rv generation.
+- Let's discuss some examples.
+
+# Closing
+
+Students please summarize/ask questions about what we discussed today.
