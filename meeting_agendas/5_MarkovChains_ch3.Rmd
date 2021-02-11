@@ -36,6 +36,8 @@ library(printr)
 
 # I. Simulating and visualizing sampling standard uniform
 
+## runif histogram
+
 ```{r runifTrueHist}
 n <- 100
 u <- runif( n = n )
@@ -115,7 +117,7 @@ table(X)
 table(X) / length(X)
 ```
 
-## For a severly ill person at time 1
+## For a severely ill person at time 1
 
 ```{r markovChain3}
 X[1] <- 3
@@ -144,7 +146,7 @@ table(X) / length(X)
 
 - First let's talk about the how.
 - match the support and you want a high rate of acceptance for efficiency.
-- More on the why. Do you all underestand the arguments made?
+- More on the why. Do you all understand the arguments made?
 
 ## 3.4 Transformation methods
 
