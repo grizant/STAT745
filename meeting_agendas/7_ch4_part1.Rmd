@@ -1,0 +1,106 @@
+---
+title: "Ch. 4 Generating Random Processes (Ch. 4)"
+subtitle: "Part 1"
+author: "AG Schissler"
+date: "16 Feb 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 02092021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('6_ch4_part1.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin & Startup
+
+## schedule review / Problem Set 3 due Friday
+
+- Let's review the schedule and place today's learning in context.  
+- Please complete Ch. 3 Problem Set, due Friday. 
+- The midterm exam will be released this week, due next Friday 26 Feb 2021.
+
+## Today's plan
+
+- Finish Ch. 3 discussion
+- Finish Ch. 3 Problem Set hints
+- Start Ch. 4 Generating Random Processes
+
+*Please contribute questions and comments*
+
+# I. Finish Chapter 3 discussion
+
+## Mixtures of MNV
+
+- highly flexible and useful to test robust statistical methods (robust to non-normality)
+- Discuss Figure 3.8
+
+## 3.6.3 Wishart distribution
+
+- p. 92-93
+- Inverse Wishart is important for Bayesian inference for covariance
+- see [https://en.wikipedia.org/wiki/Inverse-Wishart_distribution#Conjugate_distribution](https://en.wikipedia.org/wiki/Inverse-Wishart_distribution#Conjugate_distribution)
+
+## 3.6.4 Uniform distribution
+
+- Important for higher dimensional probability:
+- Standard MVN at high dimensions has almost all probability on sphere of radius $\sqrt d$!
+- this is completely counter to our intuition trained at lower dimensions.
+
+For more: 
+
+Vershynin, Roman. *High-dimensional probability: An introduction with applications in data science*. Vol. 47. Cambridge university press, 2018.
+
+## Ch. 3 Problem Set
+
+- Please complete Rizzo exercises 3.1, 3.3, 3.5, 3.7, 3.8, 3.12, 3.13, 3.15, 3.18.
+- Submit a html report with the rmd source.
+- Call set.seed( 02192021 ) before the 1st random number generator call.
+- If the problem does explicitly mention the sample size use 1000.
+
+# II. Ch. 4.1 Stochastic Processes
+
+## 4.1 Stochastic Processes
+
+## 4.1.1 Poisson Processes
+
+- Introduction.
+- Example 4.1
+- Example 4.2
+
+## Nonhomogeneous Poissson Processes
+
+- Intro.
+- Example 4.3
+
+## 4.1.2 Renewal Processes
+
+- Intro.
+- Example 4.4
+
+## 4.1.3 Symmetric Random Walk
+
+- Intro.
+- Example 4.5
+- Example 4.6
+
+# III. 4.2 Brownian Motion
+
+## 4.2 Brownian Motion
+
+- Definition.
+- Example 4.7.
+
+
+# Closing
+
+- Briefly discuss remaing exercise prompts.
+- Students please summarize/ask questions about what we discussed today.
+- Other questions?
