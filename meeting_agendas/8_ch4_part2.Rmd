@@ -1,0 +1,187 @@
+---
+title: "Ch. 4 Generating Random Processes (Ch. 4)"
+subtitle: "Part 2"
+author: "AG Schissler"
+date: "18 Feb 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 02182021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('8_ch4_part2.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin & Startup
+
+## schedule review / Problem Set 3 due Friday
+
+- Let's review the schedule and place today's learning in context.  
+- Please complete Ch. 3 Problem Set, due Friday. 
+- The midterm exam will be released this week, due next Friday 26 Feb 2021.
+- Questions regarding Ch. 3 HW?
+
+## Today's plan
+
+I. Definitions, motivation, and intuition for stochastic processes  
+II. Finish Ch. 4 Generating Random Processes Rizzo content/examples  
+III. Ch. 4 Problem prompt discussion / hints  
+
+*Please contribute questions and comments*
+
+# I. Stochastic processes
+
+- More on random processes
+- adapted from Stirzaker, David. "Stochastic processes and models." OUP Catalogue (2005).
+
+## Stochastic processes
+
+### A *stochastic process* is a collection of rvs. $( X(t): t \in T)$ where $t$ is the parameter that runs over an index set $T$.
+
+## Characterized by 3 principal properties
+
+1. the state space
+2. the parameter set
+3. the dependence relations (the joint distribution) of the various random variables $X(t)$.
+
+## Examples
+
+- $X(t)$ is the number of emails in your inbox at time $t$ (continuous time).
+- Your bank balance on day $t$ (discrete time).
+- The number of active covid cases at UNR for week $w$ (16 students and 6 faculty as of 18 Feb 2021).
+- Please think of an example.
+
+## How to study
+
+- Described mathematically in a way that reflects the practical / experimental setting
+- These assumptions/formalizations are provided in a **local** manner.
+- For example, the *state* $X(t)$ at time $t$, the interarrival times are iid exponential, etc.
+- From these short-term description the analyst often seeks to underestand the **global** long-run behavior.
+
+# II. Ch. 4 Stochastic Processes continued
+
+## 4.1.1 Poisson Processes
+
+- typo in Equation 4.1 should be $P( N(s + t) - N(s) = n ) = \frac{ e^{- (\lambda t)}(\lambda t)^n} {n!}, 0 < s < s + t, n \geq 0$.
+- We see that the interarrival times are exponential on p.99-100.
+- Define independent rvs $\{X_r : r \geq 1\} \sim Exponential(\lambda)$ 
+- and their convolution $T_n = \sum_{r \geq 1} X_r, T_0 = 0$.
+- Define $N(t) = max \{n: T_n \leq t \}$. This is a counting process and a Poisson process.
+
+<!-- 
+$P( N(t) = n ) = P(T_n \leq t) - P(T_{n+1} \leq t)$ 
+-->
+
+- OR alternatively define $N(t) = min \{n: T_n > t \} - 1$ as in Rizzo.
+
+## Slightly modified Example 4.1
+
+```{r ex41}
+### Example 4.1 (Poisson process)
+lambda <- 2
+t0 <- 2
+Xr <- rexp(100, lambda)       #interarrival times
+head( Xr, 7)
+Tn <- cumsum(Xr)              #arrival times
+head( Tn, 7 )
+## n <- min(which(Tn > t0))      #arrivals+1 in [0, t0]
+n <- max(which(Tn <= t0))      #arrivals in [0, t0]
+n
+```
+
+## Nonhomogeneous Poissson Processes 
+
+- Intuition on the definiton: explore arbitrary small intervals $(t, t + h)$ of  length $h$.
+- to make precise smallness, a function $f(h)$ is said to be $o(h)$ if
+
+$f(h)/h \rightarrow 0, h\rightarrow 0.$ and say that $f = o(h)$ with a slight abuse of notion.
+
+- now we see that the definition inforces *inconstant intensity* via $\lambda(t)$
+- and *rarity* that multiple occurences happen in the small interval
+
+## Example 4.3 (hint for exercise 4.3)
+
+```{r ex43}
+lambda <- 3; upper <- 100
+N <- rpois(1, lambda * upper) ## just to find a suitably large upper time point
+Tn <- rexp(N, lambda)
+Sn <- cumsum(Tn)
+Un <- runif(N)
+keep <- (Un <= cos(Sn)^2)    ## indicator, as logical vector
+head( round(Sn[keep], 4)  ) ## running total arrival times 
+table( keep ) / N
+sum( Sn[keep] <= 2*pi ) ## time at 2*pi
+```
+
+## Example 4.3 replicated 
+
+```{r ex43a}
+n <- 10000 ## number of simulation reps
+lambda <- 3; upper <- 100
+y <- replicate(n, expr = {
+    N <- rpois(1, lambda * upper)
+    Tn <- rexp(N, lambda)
+    Sn <- cumsum(Tn)
+    Un <- runif(N)
+    keep <- (Un <= cos(Sn)^2)    ## indicator, as logical vector
+    sum( Sn[keep] > pi & Sn[keep] <= 2*pi ) ## time at 2*pi
+})
+```
+
+## comparison to theoretic
+
+- The probability distribution of $N( 2\pi ) - N( \pi)$ is Poisson with mean $m(2\pi) - m(\pi)$
+- Analytic integral is available but to show you numeric integration:
+
+```{r ex43b}
+mu <- integrate(f = function(t) { 3 * cos(t)^2 }, lower = pi, upper = 2*pi)
+mu
+mean(y); var(y) ## simulated sample mean, var
+```
+
+## Simulated points overlap exact
+
+```{r ex43c}
+plot(ecdf(y))
+points(0:25, ppois(0:25, mu$value), pch = 3)
+legend("topleft", inset = 0.1, legend = c("simulation", "Poisson(4.712)"), pch = c(1, 3))
+```
+
+## 4.1.2 Renewal Processes (optional)
+
+- Intro.
+- Example 4.4
+
+## 4.1.3 Symmetric Random Walk
+
+- Definitions
+
+## Example 4.5 (hint for Ex. 4.1)
+
+```{r ex45}
+n <- 400
+incr <- sample(c(-1, 1), size = n, replace = TRUE)
+S <- as.integer(c(0, cumsum(incr)))
+plot(0:n, S, type = "l", main = "", xlab = "i")
+```
+
+## 4.2 Brownian Motion (optional)
+
+- Definition.
+- Example 4.7.
+
+# III. Ch. 4 Problem Set discussion
+
+- Read and discuss 4.1 and 4.3
+
+# Closing
+
+- Students please summarize/ask questions about what we discussed today.
+- Other questions?

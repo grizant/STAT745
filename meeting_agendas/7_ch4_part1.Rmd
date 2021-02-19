@@ -26,6 +26,7 @@ library(printr)
 - Let's review the schedule and place today's learning in context.  
 - Please complete Ch. 3 Problem Set, due Friday. 
 - The midterm exam will be released this week, due next Friday 26 Feb 2021.
+- Questions after submitting HW 1? Did you remember to submit `rmd` source and `html` report?
 
 ## Today's plan
 
@@ -98,9 +99,7 @@ Vershynin, Roman. *High-dimensional probability: An introduction with applicatio
 - Definition.
 - Example 4.7.
 
-
 # Closing
 
-- Briefly discuss remaing exercise prompts.
 - Students please summarize/ask questions about what we discussed today.
 - Other questions?
