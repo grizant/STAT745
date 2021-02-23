@@ -1,0 +1,262 @@
+---
+title: "Visualization of Multivariate Data"
+subtitle: "Chapter 5 SCR2e"
+author: "AG Schissler"
+date: "23 Feb 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 02232021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('9_ch5_multivariateViz.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin & Startup
+
+## Schedule review
+
+- Let's review the schedule and place today's learning in context.  
+- Please complete the **midterm exam** and Ch. 4 Problem Set by Friday. 
+- Questions regarding Ch. 4 HW?
+- Clarification questions for the midterm exam?
+
+## Today's plan
+
+I. Preview Ch. 5 Problem Set questions to prime learning.  
+II. Discuss Ch. 5  
+III. Revisit Ch. 5 Problem prompt discussion / hints    
+
+*Please contribute questions and comments*
+
+# I. Preview Ch.5 Problem Set
+
+- 5.3-5.6 Two-component mixture viz (vary the mixing parameter)
+- 5.7 (parallel coordinates)
+- 5.11 (segment-style stars plot)
+- 5.12, 5.13 Understanding PCA
+- 5.16 Applying PCA
+
+# II. Chapter 5 discussion
+
+## 5.1 Introduction
+
+- Importance of viz for exploratory data analysis (EDA).
+- The term “exploratory” is in contrast to “confirmatory,” which could describe hypothesis testing. 
+- Tukeybelieved that it was important to do the exploratory work before hypothesis testing, to learn what are the appropriate questions to ask, and the most appropriate methods to answer them.
+- With multivariate data, we may also be interested in dimension reduction or finding structure or groups in the data. Here we restrict attention to methods for visualizing multivariate data.
+- Discuss Table 5.1
+
+# Sections 5.2 - 5.5
+
+## 5.2 Panel displays
+
+- Consider using `GGally::pairs` for scatterplot matrix.
+- Discuss Example 5.1.
+
+## 5.3 Correlation plots
+
+- dimension reduction
+- useful for predictive modeling
+- fitting considerations for highly correlated features
+- Discuss Example 5.2 (Decathlon data)
+
+## 5.4 Surface plots and 3D Scatter plots
+
+- Discuss Example 5.3
+- `expand.grid` is great for simulation configurations
+- Discuss Figure 5.7 scatter plot briefly 
+
+## 5.5 Contour Plots
+
+- briefly discuss in Rizzo.
+
+# 5.6 Other 2D Representations of Data
+
+## Example 5.11 (Parallel Coordinate)
+
+```{r ex511}
+library(MASS)
+library(lattice)
+##trellis.device(color = FALSE) #black and white display
+x <- crabs[seq(5, 200, 5), ]  #get every fifth obs.
+parallelplot(~x[4:8] | sp*sex, x)
+```
+
+---
+
+```{r ex511b}
+##trellis.device(color = FALSE)    #black and white display
+x <- crabs[seq(5, 200, 5), ]     #get every fifth obs.
+a <- x$CW * x$CL                 #area of carapace
+x[4:8] <- x[4:8] / sqrt(a)       #adjust for size
+parallelplot(~x[4:8] | sp*sex, x)
+```
+
+## 5.6.3 Segments, stars, and other representations
+
+From Gardeux, Vincent, et al. "‘N-of-1-pathways’ unveils personal deregulated mechanisms from a single pair of RNA-Seq samples: towards precision medicine." Journal of the American Medical Informatics Association 21.6 (2014): 1015-1025.
+https://academic.oup.com/jamia/article/21/6/1015/2909265?login=true
+
+## Example 5.12 (segment plot)
+
+```{r ex512}
+x <- MASS::crabs[seq(5, 200, 5), ]         #get every fifth obs.
+x <- subset(x, sex == "M")           #keep just the males
+a <- x$CW * x$CL                     #area of carapace
+x[4:8] <- x[4:8] / sqrt(a)           #adjust for size
+
+palette(rainbow(6))                 #or use color
+stars(x[4:8], draw.segments = TRUE,
+      labels =levels(x$sp), nrow = 4,
+      ylim = c(-2,10), key.loc = c(3,-1))
+
+palette("default")
+```
+
+## Single-cell transcriptome dysregulation viz
+
+- Polar-coordinate bar chart from our research:  
+
+Schissler AG, Li Q, Chen JL, Kenost C, Achour I, Billheimer DD, Li H, Piegorsch WW, Lussier YA. *Analysis of aggregated cell-cell statistical distances within pathways unveils therapeutic-resistance mechanisms in circulating tumor cells. Bioinformatics.* 2016 Jun 15;32(12):i80-i89. doi: 10.1093/bioinformatics/btw248. PMID: 27307648; PMCID: PMC4908332.
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4908332/
+
+- `nof1` pathways R package vignette: http://www.lussierlab.net//publications/nof1pathways-vignette_v2.html
+
+Ask me if you want the code, it is under patent.
+
+# 5.7 Principal Component Analysis (PCA)
+
+## 2D PCA illustration
+
+https://en.wikipedia.org/wiki/Principal_component_analysis#/media/File:GaussianScatterPCA.svg
+
+## Example 5.13 (PCA)
+
+```{r ex513a}
+library(bootstrap)
+str(scor)
+```
+
+---
+
+```{r ex513b, message=FALSE, warning=FALSE}
+library(GGally)
+plot513b <- ggpairs(scor)
+plot513b
+```
+
+---
+
+```{r ex513c}
+n <- nrow(scor)
+x <- scale(scor)  #center and scale
+s <- cov(x)
+e <- eigen(s)
+lam <- e$values   #vector of eigenvalues
+P <- e$vectors    #matrix of eigenvectors
+## plot(lam, type = "b", xlab = "eigenvalues", main = "")
+barplot(lam, xlab = "eigenvalues")
+```
+
+---
+
+```{r ex513d, message=FALSE, warning=FALSE}
+tab <- rbind(lam / sum(lam), cumsum(lam) / sum(lam))
+tab
+```
+
+---
+
+```{r ex513e, message=FALSE, warning=FALSE}
+z <- x %*% P
+dim(z)
+head(z)
+```
+
+---
+
+```{r ex513f}
+pc <- prcomp(scor, center = TRUE, scale = TRUE)
+summary(pc)
+```
+
+---
+
+```{r ex513g}
+df <- scor[1:5, ]
+predict(pc, newdata = df)  #same as z above
+```
+
+---
+
+```{r ex513h}
+head(x %*% pc$rotation, 5)
+```
+
+---
+
+```{r ex513i}
+head(pc$rotation)
+```
+
+---
+
+```{r ex513j, warning=F}
+head(P)
+```
+
+## Example 5.14 (PC Biplot)
+
+```{r ex514}
+## plot scor data in the (PC1, PC2) coordinate system
+biplot(pc, pc.biplot = TRUE)
+round(cor(x, z), 3)
+```
+
+## Example 5.15 ( Decathlon PCA)
+
+### Example 5.15 (PCA: Decathlon data)
+
+```{r ex515}
+library(FactoMineR)
+data(decathlon)
+pc <- princomp(decathlon[,1:10], cor = TRUE, scores = TRUE)
+plot(pc)     # screeplot
+```
+
+---
+    
+```{r ex515b}
+biplot(pc)
+```
+
+---
+    
+```{r ex515c}
+summary(pc)    
+```
+
+# 5.8 Other approaches to Data Visualization
+
+- interesting content such as *grand tour* viz via `tourr` package.
+- `FactoMineR` for multivariate viz
+- https://datavis.ca/ categorical data
+- `forcats` in tidyverse
+
+
+# 5.9 Additional resources
+
+Good list of resources. Check them out for inspiration during when developing your next important plot.
+
+# Closing
+
+- Students please summarize/ask questions about what we discussed today.
+- Other questions?
