@@ -1,0 +1,166 @@
+---
+title: "Monte Carlo Integration, Variance and Efficiency"
+subtitle: "Chapter 6 SCR2e, Part I, 6.1-6.2"
+author: "AG Schissler"
+date: "2 Mar 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 03022021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('10_ch6_mcIntegrationVarReduce.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin & Startup
+
+## Schedule review
+
+- Grades posted. Please check and let me know if you have questions.
+- Drop day is tomorrow, 3 Mar 2021.
+- Let's review the schedule and place today's learning in context.  
+- Please complete Ch. 5 Problem Set by Friday. 
+
+##  Questions regarding Ch. 5 HW?
+
+- 5.3-5.6 Two-component mixture viz (vary the mixing parameter)
+- 5.7 (parallel coordinates)
+- 5.11 (segment-style stars plot)
+- 5.12, 5.13 Understanding PCA
+- 5.16 Applying PCA
+
+## Today's plan
+
+i. Finish PCA discussion in `9_ch5_multivariateViz.Rmd`, starting at slide 19.
+ii. Preview Ch. 6 Problem Set questions to prime learning.
+iii. Discuss Ch. 6, Part I: Intro MC Integration, variance reduction
+iv. Summarize, conclude, revisit Ch. 6 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# I. Preview Ch.6 Problem Set
+
+- 6.1 (MC integration; see example 6.1,6.2)
+- 6.2 (MC `pnorm`; see example 6.3)
+- 6.3 (comparing MC estimators)
+- 6.6, 6.7 (antithetic variates)
+- 6.12 (importance sampling theory)
+- 6.13 (importance sampling)
+- 6.15 (stratified importance sampling; see examples 6.11 and 6.14)
+
+# II. Chapter 6 Part I discussion
+ 
+- Intro, MC Integration, Variance and Efficiency
+- Selected sections: 6.1 - 6.2
+- Examples: 6.1 - 6.5
+
+## 6.1 Introduction
+
+- Monte Carlo methods were largely developed in 1940s, Stanislaw Ulam.
+- But old history of random sampling to estimate probabilities (Buffon 1777), Gossett 1908 the $t-distribution.
+- Computing advances in the middle of the 20th century and beyond made this a viable option for integration.
+
+# 6.2 Monte Carlo Integration
+
+- $E[g(X)]= \int_\mathscr{A} g(x)f(x) dx$
+- sample mean is an unbiased estimater!
+
+## 6.2.1 Simple MC Estimator
+
+- p.148
+
+## Example 6.1
+
+```{r ex61}
+### Example 6.1 (Simple Monte Carlo integration)
+m <- 10000
+x <- runif(m)
+theta.hat <- mean(exp(-x))
+print(theta.hat)
+print(1 - exp(-1))
+```
+
+## Example 6.2
+
+```{r ex62}
+### Example 6.2 (Simple Monte Carlo integration, cond)
+m <- 10000
+x <- runif(m, min=2, max=4)
+theta.hat <- mean(exp(-x)) * 2
+print(theta.hat)
+print(exp(-2) - exp(-4))
+```
+
+## Example 6.3
+
+```{r ex63}
+## Example 6.3 (Monte Carlo integration, unbounded interval)
+x <- seq(.1, 2.5, length = 10)
+m <- 10000
+u <- runif(m)
+cdf <- numeric(length(x))
+for (i in 1:length(x)) {
+    g <- x[i] * exp(-(u * x[i])^2 / 2)
+    cdf[i] <- mean(g) / sqrt(2 * pi) + 0.5
+}
+```
+
+---
+
+```{r ex36b}
+Phi <- pnorm(x)
+print(round(rbind(x, cdf, Phi), 3))
+```
+
+## Example 6.4
+
+```{r ex64}
+### Example 6.4 (Example 6.3, cont.)
+x <- seq(.1, 2.5, length = 10)
+m <- 10000
+z <- rnorm(m)
+dim(x) <- length(x)
+p <- apply(x, MARGIN = 1,
+           FUN = function(x, z) {mean(z < x)}, z = z)
+```
+
+---
+
+```{r ex64b}
+Phi <- pnorm(x)
+print(round(rbind(x, p, Phi), 3))
+```
+
+
+## Example 6.5
+
+```{r ex65}
+### Example 6.5 (Error bounds for MC integration)
+x <- 2
+m <- 10000
+z <- rnorm(m)
+g <- (z < x)  #the indicator function
+v <- mean((g - mean(g))^2) / m
+cdf <- mean(g)
+c(cdf, v)
+c(cdf - 1.96 * sqrt(v), cdf + 1.96 * sqrt(v))
+```
+
+## 6.2.2 Variance and Efficiency
+
+- discuss p.153
+
+# Closing / Ch. 6 Problem set
+
+- Students please summarize/ask questions about what we discussed today.
+- 6.1 (MC integration; see example 6.1,6.2)
+- 6.2 (MC `pnorm`; see example 6.3)
+- 6.3 (comparing MC estimators)
+- Other questions?
