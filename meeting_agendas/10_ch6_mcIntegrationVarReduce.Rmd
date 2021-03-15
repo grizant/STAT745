@@ -23,7 +23,8 @@ library(printr)
 
 ## Schedule review
 
-- Grades posted. Please check and let me know if you have questions.
+- Grades will be posted tomorrow by noon.
+- Please check and let me know if you have questions.
 - Drop day is tomorrow, 3 Mar 2021.
 - Let's review the schedule and place today's learning in context.  
 - Please complete Ch. 5 Problem Set by Friday. 

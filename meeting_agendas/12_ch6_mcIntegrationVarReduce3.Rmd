@@ -1,0 +1,260 @@
+---
+title: "Monte Carlo Integration, Variance and Efficiency"
+subtitle: "Chapter 6 SCR2e, Part III"
+author: "AG Schissler"
+date: "11 Mar 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 03112021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('12_ch6_mcIntegrationVarReduce3.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Admin & Startup
+
+## Course correction
+
+Been reflecting and talking to some students, now is a good time for a "course correction":
+
+1) Fewer assigned problems for future HWs.
+2) Standing office hour proposed, you will be asked to complete a preference survey via Canvas announcement.
+3) Build more examples into lecture to help with HW problems.
+4) Focus discussion for more depth/time on fewer topics (at the cost of a bit less coverage).
+5) Other suggestions?
+
+## Action items
+
+### Students
+
+- Ch. 6 HW now due 19 Mar 2021.
+- This should provide some relief after the intense couple of weeks we have had.
+- We'll push Ch.7 discussion to next week.
+- Please, please read Ch.7 and let me know what areas could I help you understand.
+- When I'm grading I grade a couple of problems carefully and look holistically at the rest. 
+- If you want specific feedback on a question you are unsure, make a comment Canvas SpeedGrader. (Usually, I will note if I see a problem incorrect spontaneously, but you are the best steward of your learning and pointing out areas of concern will help me help you.)
+
+### Instructor
+
+- Grade Ch. 5 HW
+- Prep meeting agendas for next week: Ch.7 and, potentially Ch.8.
+
+## Today's plan
+
+i. Open with questions on Ch. 6 Problem Set to prime learning.
+ii. Finish discussion of Ch. 6.
+iii. Summarize, conclude, revisit Ch. 6 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# I. Discuss Ch.6 Problem Set again
+
+- 6.1 (MC integration; see example 6.1,6.2)
+- 6.2 (MC `pnorm`; see example 6.3)
+- 6.3 (comparing MC estimators)
+- 6.6, 6.7 (antithetic variates)
+- 6.12 (importance sampling theory; see p.172)
+- 6.13 (importance sampling; focus on the support; hint use translation)
+- 6.15 (stratified importance sampling; see examples 6.11 and 6.14)
+
+## Focus on Problem 6.2
+
+- Everyone good with estimating the CDF of normal using $U \sim Uniform(0,x)$?
+- Could someone explain the difference between this and using $U \sim Uniform(0,1)$? as in Example 6.3?
+- Let's revisit the variance/standard error estimation of $\hat{\theta}$ on p. 151.
+- How is the SE calculation different when using the non-standard uniform?
+
+### Two ways to estimate SE of MC estimators
+1. Use Eq. (6.3) on p.152 being careful to track constants, etc.
+2. Replicate the MC estimation procedure and estimate sd of the theta hat's.
+
+## Example 6.4
+
+```{r ex64}
+### Example 6.4 (Example 6.3, cont.)
+x <- seq(.1, 2.5, length = 10)
+m <- 10000
+z <- rnorm(m)
+dim(x) <- length(x)
+p <- apply(x, MARGIN = 1,
+           FUN = function(x, z) {mean(z < x)}, z = z)
+```
+
+---
+
+```{r ex64b}
+Phi <- pnorm(x)
+print(round(rbind(x, p, Phi), 3))
+```
+
+
+## Example 6.5 (extended slightly)
+
+```{r ex65}
+### Example 6.5 (Error bounds for MC integration)
+x <- 2
+m <- 10000
+z <- rnorm(m)
+g <- (z < x)  #the indicator function
+v <- mean((g - mean(g))^2) / m ## OR use var(g)/m
+cdf <- mean(g)
+c(cdf, v)
+c(cdf - 1.96 * sqrt(v), cdf + 1.96 * sqrt(v))
+pnorm(2)
+```
+
+## 6.2.2 Variance and Efficiency
+
+- discuss p.153
+
+# iii. Discuss Ch. 6, Part II: Variance reduction techniques
+
+# 6.4 Antithetic variables
+
+## Corollary 6.1
+
+Core insight is:
+
+If $U \sim U(0,1)$, then $1-U \sim U(0,1)$ but clearly
+
+$$
+Cov(U, 1-U) = Cov(U, -U) + Cov(U, 1) = - Cov(U,U) + 0 = - Var(U) < 0
+$$
+
+And applying $g( F_X^{-1}( \cdot ) )$ doesn't mess this up as the probability of integral of both $g( F_X^{-1}( U ) )$ and $g( F_X^{-1}( 1-U ) )$ get us to $g(x)$
+
+## Example 6.6 (Antithetic variables)
+
+```{r 66a}
+MC.Phi <- function(x, R = 10000, antithetic = TRUE) {
+    u <- runif(R/2)
+    if (!antithetic) v <- runif(R/2) else
+                                         v <- 1 - u
+    u <- c(u, v)
+    cdf <- numeric(length(x))
+    for (i in 1:length(x)) {
+        g <- x[i] * exp(-(u * x[i])^2 / 2)
+        cdf[i] <- mean(g) / sqrt(2 * pi) + 0.5
+    }
+    cdf
+}
+```
+
+## Example 6.6 (Antithetic variables)
+    
+```{r 66b}
+x <- seq(.1, 2.5, length=5)
+Phi <- pnorm(x)
+set.seed(123)
+MC1 <- MC.Phi(x, anti = FALSE)
+set.seed(123)
+MC2 <- MC.Phi(x)
+print(round(rbind(x, MC1, MC2, Phi), 5))
+```
+
+## Example 6.6 (Antithetic variables)
+    
+```{r 66c}
+m <- 1000
+MC1 <- MC2 <- numeric(m)
+x <- 1.95
+for (i in 1:m) {
+    MC1[i] <- MC.Phi(x, R = 1000, anti = FALSE)
+    MC2[i] <- MC.Phi(x, R = 1000)
+}
+print(sd(MC1))
+print(sd(MC2))
+print((var(MC1) - var(MC2))/var(MC1))
+```
+
+## Hint on Exercise 6.6
+
+Compare $Var( \frac{1}{2}(e^U + e^V))$ with $U,V \sim Uniform(0,1)$ to $Var( \frac{1}{2}(e^U + e^{1-U}))$.
+
+# 6.5 Control Variates (we can skip this)
+
+## 6.5 Control Variates background
+
+- Discuss p.158-159.
+
+## Example 6.8 (MC integration using control variates)
+
+```{r 68a}
+f <- function(u)
+    exp(-.5)/(1+u^2)
+
+g <- function(u)
+    exp(-u)/(1+u^2)
+
+set.seed(510) #needed later
+u <- runif(10000)
+B <- f(u)
+A <- g(u)
+cor(A, B)
+```
+
+## Example 6.8 (MC integration using control variates)
+
+```{r 68b}
+a <- -cov(A,B) / var(B)    #est of c*
+a
+```
+
+## Example 6.8 (MC integration using control variates)
+
+```{r 68c}
+m <- 100000
+u <- runif(m)
+T1 <- g(u)
+T2 <- T1 + a * (f(u) - exp(-.5)*pi/4)
+c(mean(T1), mean(T2))
+c(var(T1), var(T2))
+(var(T1) - var(T2)) / var(T1)
+```
+
+## 6.5.1 Antithetic Variate as Control Variate
+
+- Discussion
+
+# 6.6 Importance sampling
+
+- Introduction on p. 167.
+
+## Example 6.11, 6.12
+
+- walk through e-text
+
+# 6.7 Stratified Sampling
+
+- Introduction on p. 172.
+
+## Proposition 6.2
+
+Concluding remark: Stratification helps when means are the strata vary.
+
+## Example 6.13
+
+From Rizzo's repo.
+
+# 6.8 Stratified Importance Sampling
+
+- Discussion
+
+## Exercise 6.15 hint
+
+- Hint the inverse transform method.
+- You will have to derive the inverse CDF of the importance function as in Example 6.11.
+
+# Closing / Ch. 6 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.

@@ -20,7 +20,7 @@
       // Slide settings
       settings: {
                 title: 'Monte Carlo Integration, Variance and Efficiency',
-                        subtitle: 'Chapter 6 SCR2e, Part I, 6.1-6.2',
+                        subtitle: 'Chapter 6 SCR2e, Part III',
                 useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -3189,137 +3189,85 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2 Mar 2021 (<em>updated: 2021-03-02)</em></p>
+            <p style="margin-top: 6px; margin-left: -2px;">11 Mar 2021 (<em>updated: 2021-03-11)</em></p>
           </hgroup>
   </slide>
 
 <!-- open up etext as you go. don't typeset the chapter -->
 
-<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>i. Admin &amp; Startup</h2></hgroup><article  class="smaller " id="i.-admin-startup">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>i. Admin &amp; Startup</h2></hgroup><article  id="i.-admin-startup" class="smaller ">
 
-</article></slide><slide class=""><hgroup><h2>Schedule review</h2></hgroup><article  class="smaller " id="schedule-review">
+</article></slide><slide class=""><hgroup><h2>Course correction</h2></hgroup><article  id="course-correction" class="smaller ">
 
-<ul>
-<li>Grades will be posted tomorrow by noon.</li>
-<li>Please check and let me know if you have questions.</li>
-<li>Drop day is tomorrow, 3 Mar 2021.</li>
-<li>Let’s review the schedule and place today’s learning in context.<br/></li>
-<li>Please complete Ch. 5 Problem Set by Friday.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Questions regarding Ch. 5 HW?</h2></hgroup><article  class="smaller " id="questions-regarding-ch.-5-hw">
-
-<ul>
-<li>5.3-5.6 Two-component mixture viz (vary the mixing parameter)</li>
-<li>5.7 (parallel coordinates)</li>
-<li>5.11 (segment-style stars plot)</li>
-<li>5.12, 5.13 Understanding PCA</li>
-<li>5.16 Applying PCA</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Today’s plan</h2></hgroup><article  class="smaller " id="todays-plan">
+<p>Been reflecting and talking to some students, now is a good time for a &ldquo;course correction&rdquo;:</p>
 
 <ol>
-<li>Finish PCA discussion in <code>9_ch5_multivariateViz.Rmd</code>, starting at slide 19.</li>
-<li>Preview Ch. 6 Problem Set questions to prime learning.</li>
-<li>Discuss Ch. 6, Part I: Intro MC Integration, variance reduction</li>
+<li>Fewer assigned problems for future HWs.</li>
+<li>Standing office hour proposed, you will be asked to complete a preference survey via Canvas announcement.</li>
+<li>Build more examples into lecture to help with HW problems.</li>
+<li>Focus discussion for more depth/time on fewer topics (at the cost of a bit less coverage).</li>
+<li>Other suggestions?</li>
+</ol>
+
+</article></slide><slide class=""><hgroup><h2>Action items</h2></hgroup><article  id="action-items" class="smaller ">
+
+<h3>Students</h3>
+
+<ul>
+<li>Ch. 6 HW now due 19 Mar 2021.</li>
+<li>This should provide some relief after the intense couple of weeks we have had.</li>
+<li>We’ll push Ch.7 discussion to next week.</li>
+<li>Please, please read Ch.7 and let me know what areas could I help you understand.</li>
+<li>When I’m grading I grade a couple of problems carefully and look holistically at the rest.</li>
+<li>If you want specific feedback on a question you are unsure, make a comment Canvas SpeedGrader. (Usually, I will note if I see a problem incorrect spontaneously, but you are the best steward of your learning and pointing out areas of concern will help me help you.)</li>
+</ul>
+
+<h3>Instructor</h3>
+
+<ul>
+<li>Grade Ch. 5 HW</li>
+<li>Prep meeting agendas for next week: Ch.7 and, potentially Ch.8.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Today’s plan</h2></hgroup><article  id="todays-plan" class="smaller ">
+
+<ol>
+<li>Open with questions on Ch. 6 Problem Set to prime learning.</li>
+<li>Finish discussion of Ch. 6.</li>
 <li>Summarize, conclude, revisit Ch. 6 Problem prompt discussion / hints time remaining</li>
 </ol>
 
 <p><em>Please contribute questions and comments</em></p>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>I. Preview Ch.6 Problem Set</h2></hgroup><article  class="smaller " id="i.-preview-ch.6-problem-set">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>I. Discuss Ch.6 Problem Set again</h2></hgroup><article  id="i.-discuss-ch.6-problem-set-again" class="smaller ">
 
 <ul>
 <li>6.1 (MC integration; see example 6.1,6.2)</li>
 <li>6.2 (MC <code>pnorm</code>; see example 6.3)</li>
 <li>6.3 (comparing MC estimators)</li>
 <li>6.6, 6.7 (antithetic variates)</li>
-<li>6.12 (importance sampling theory)</li>
-<li>6.13 (importance sampling)</li>
+<li>6.12 (importance sampling theory; see p.172)</li>
+<li>6.13 (importance sampling; focus on the support; hint use translation)</li>
 <li>6.15 (stratified importance sampling; see examples 6.11 and 6.14)</li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>II. Chapter 6 Part I discussion</h2></hgroup><article  class="smaller " id="ii.-chapter-6-part-i-discussion">
+</article></slide><slide class=""><hgroup><h2>Focus on Problem 6.2</h2></hgroup><article  id="focus-on-problem-6.2" class="smaller ">
 
 <ul>
-<li>Intro, MC Integration, Variance and Efficiency</li>
-<li>Selected sections: 6.1 - 6.2</li>
-<li>Examples: 6.1 - 6.5</li>
+<li>Everyone good with estimating the CDF of normal using \(U \sim Uniform(0,x)\)?</li>
+<li>Could someone explain the difference between this and using \(U \sim Uniform(0,1)\)? as in Example 6.3?</li>
+<li>Let’s revisit the variance/standard error estimation of \(\hat{\theta}\) on p. 151.</li>
+<li>How is the SE calculation different when using the non-standard uniform?</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>6.1 Introduction</h2></hgroup><article  class="smaller " id="introduction">
+<h3>Two ways to estimate SE of MC estimators</h3>
 
-<ul>
-<li>Monte Carlo methods were largely developed in 1940s, Stanislaw Ulam.</li>
-<li>But old history of random sampling to estimate probabilities (Buffon 1777), Gossett 1908 the $t-distribution.</li>
-<li>Computing advances in the middle of the 20th century and beyond made this a viable option for integration.</li>
-</ul>
+<ol>
+<li>Use Eq. (6.3) on p.152 being careful to track constants, etc.</li>
+<li>Replicate the MC estimation procedure and estimate sd of the theta hat’s.</li>
+</ol>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>6.2 Monte Carlo Integration</h2></hgroup><article  class="smaller " id="monte-carlo-integration">
-
-<ul>
-<li>\(E[g(X)]= \int_\mathscr{A} g(x)f(x) dx\)</li>
-<li>sample mean is an unbiased estimater!</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>6.2.1 Simple MC Estimator</h2></hgroup><article  class="smaller " id="simple-mc-estimator">
-
-<ul>
-<li>p.148</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Example 6.1</h2></hgroup><article  class="smaller " id="example-6.1">
-
-<pre class = 'prettyprint lang-r'>### Example 6.1 (Simple Monte Carlo integration)
-m &lt;- 10000
-x &lt;- runif(m)
-theta.hat &lt;- mean(exp(-x))
-print(theta.hat)</pre>
-
-<pre >## [1] 0.6301299</pre>
-
-<pre class = 'prettyprint lang-r'>print(1 - exp(-1))</pre>
-
-<pre >## [1] 0.6321206</pre>
-
-</article></slide><slide class=""><hgroup><h2>Example 6.2</h2></hgroup><article  class="smaller " id="example-6.2">
-
-<pre class = 'prettyprint lang-r'>### Example 6.2 (Simple Monte Carlo integration, cond)
-m &lt;- 10000
-x &lt;- runif(m, min=2, max=4)
-theta.hat &lt;- mean(exp(-x)) * 2
-print(theta.hat)</pre>
-
-<pre >## [1] 0.1175473</pre>
-
-<pre class = 'prettyprint lang-r'>print(exp(-2) - exp(-4))</pre>
-
-<pre >## [1] 0.1170196</pre>
-
-</article></slide><slide class=""><hgroup><h2>Example 6.3</h2></hgroup><article  class="smaller " id="example-6.3">
-
-<pre class = 'prettyprint lang-r'>## Example 6.3 (Monte Carlo integration, unbounded interval)
-x &lt;- seq(.1, 2.5, length = 10)
-m &lt;- 10000
-u &lt;- runif(m)
-cdf &lt;- numeric(length(x))
-for (i in 1:length(x)) {
-    g &lt;- x[i] * exp(-(u * x[i])^2 / 2)
-    cdf[i] &lt;- mean(g) / sqrt(2 * pi) + 0.5
-}</pre>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  class="smaller">
-
-<pre class = 'prettyprint lang-r'>Phi &lt;- pnorm(x)
-print(round(rbind(x, cdf, Phi), 3))</pre>
-
-<pre >##     [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10]
-## x   0.10 0.367 0.633 0.900 1.167 1.433 1.700 1.967 2.233 2.500
-## cdf 0.54 0.643 0.737 0.816 0.878 0.923 0.954 0.974 0.986 0.992
-## Phi 0.54 0.643 0.737 0.816 0.878 0.924 0.955 0.975 0.987 0.994</pre>
-
-</article></slide><slide class=""><hgroup><h2>Example 6.4</h2></hgroup><article  class="smaller " id="example-6.4">
+</article></slide><slide class=""><hgroup><h2>Example 6.4</h2></hgroup><article  id="example-6.4" class="smaller ">
 
 <pre class = 'prettyprint lang-r'>### Example 6.4 (Example 6.3, cont.)
 x &lt;- seq(.1, 2.5, length = 10)
@@ -3336,40 +3284,208 @@ print(round(rbind(x, p, Phi), 3))</pre>
 
 <pre >##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10]
 ## x   0.100 0.367 0.633 0.900 1.167 1.433 1.700 1.967 2.233 2.500
-## p   0.544 0.653 0.746 0.819 0.876 0.920 0.952 0.974 0.986 0.993
+## p   0.535 0.636 0.732 0.814 0.880 0.924 0.955 0.976 0.989 0.994
 ## Phi 0.540 0.643 0.737 0.816 0.878 0.924 0.955 0.975 0.987 0.994</pre>
 
-</article></slide><slide class=""><hgroup><h2>Example 6.5</h2></hgroup><article  class="smaller " id="example-6.5">
+</article></slide><slide class=""><hgroup><h2>Example 6.5 (extended slightly)</h2></hgroup><article  id="example-6.5-extended-slightly" class="smaller ">
 
 <pre class = 'prettyprint lang-r'>### Example 6.5 (Error bounds for MC integration)
 x &lt;- 2
 m &lt;- 10000
 z &lt;- rnorm(m)
 g &lt;- (z &lt; x)  #the indicator function
-v &lt;- mean((g - mean(g))^2) / m
+v &lt;- mean((g - mean(g))^2) / m ## OR use var(g)/m
 cdf &lt;- mean(g)
 c(cdf, v)</pre>
 
-<pre >## [1] 9.809000e-01 1.873519e-06</pre>
+<pre >## [1] 9.751000e-01 2.427999e-06</pre>
 
 <pre class = 'prettyprint lang-r'>c(cdf - 1.96 * sqrt(v), cdf + 1.96 * sqrt(v))</pre>
 
-<pre >## [1] 0.9782172 0.9835828</pre>
+<pre >## [1] 0.9720459 0.9781541</pre>
 
-</article></slide><slide class=""><hgroup><h2>6.2.2 Variance and Efficiency</h2></hgroup><article  class="smaller " id="variance-and-efficiency">
+<pre class = 'prettyprint lang-r'>pnorm(2)</pre>
+
+<pre >## [1] 0.9772499</pre>
+
+</article></slide><slide class=""><hgroup><h2>6.2.2 Variance and Efficiency</h2></hgroup><article  id="variance-and-efficiency" class="smaller ">
 
 <ul>
 <li>discuss p.153</li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Closing / Ch. 6 Problem set</h2></hgroup><article  class="smaller " id="closing-ch.-6-problem-set">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>iii. Discuss Ch. 6, Part II: Variance reduction techniques</h2></hgroup><article  id="iii.-discuss-ch.-6-part-ii-variance-reduction-techniques" class="smaller ">
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>6.4 Antithetic variables</h2></hgroup><article  id="antithetic-variables" class="smaller ">
+
+</article></slide><slide class=""><hgroup><h2>Corollary 6.1</h2></hgroup><article  id="corollary-6.1" class="smaller ">
+
+<p>Core insight is:</p>
+
+<p>If \(U \sim U(0,1)\), then \(1-U \sim U(0,1)\) but clearly</p>
+
+<p>\[
+Cov(U, 1-U) = Cov(U, -U) + Cov(U, 1) = - Cov(U,U) + 0 = - Var(U) &lt; 0
+\]</p>
+
+<p>And applying \(g( F_X^{-1}( \cdot ) )\) doesn’t mess this up as the probability of integral of both \(g( F_X^{-1}( U ) )\) and \(g( F_X^{-1}( 1-U ) )\) get us to \(g(x)\)</p>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.6 (Antithetic variables)</h2></hgroup><article  id="example-6.6-antithetic-variables" class="smaller ">
+
+<pre class = 'prettyprint lang-r'>MC.Phi &lt;- function(x, R = 10000, antithetic = TRUE) {
+    u &lt;- runif(R/2)
+    if (!antithetic) v &lt;- runif(R/2) else
+                                         v &lt;- 1 - u
+    u &lt;- c(u, v)
+    cdf &lt;- numeric(length(x))
+    for (i in 1:length(x)) {
+        g &lt;- x[i] * exp(-(u * x[i])^2 / 2)
+        cdf[i] &lt;- mean(g) / sqrt(2 * pi) + 0.5
+    }
+    cdf
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.6 (Antithetic variables)</h2></hgroup><article  id="example-6.6-antithetic-variables-1" class="smaller ">
+
+<pre class = 'prettyprint lang-r'>x &lt;- seq(.1, 2.5, length=5)
+Phi &lt;- pnorm(x)
+set.seed(123)
+MC1 &lt;- MC.Phi(x, anti = FALSE)
+set.seed(123)
+MC2 &lt;- MC.Phi(x)
+print(round(rbind(x, MC1, MC2, Phi), 5))</pre>
+
+<pre >##        [,1]    [,2]    [,3]    [,4]    [,5]
+## x   0.10000 0.70000 1.30000 1.90000 2.50000
+## MC1 0.53983 0.75825 0.90418 0.97311 0.99594
+## MC2 0.53983 0.75805 0.90325 0.97132 0.99370
+## Phi 0.53983 0.75804 0.90320 0.97128 0.99379</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.6 (Antithetic variables)</h2></hgroup><article  id="example-6.6-antithetic-variables-2" class="smaller ">
+
+<pre class = 'prettyprint lang-r'>m &lt;- 1000
+MC1 &lt;- MC2 &lt;- numeric(m)
+x &lt;- 1.95
+for (i in 1:m) {
+    MC1[i] &lt;- MC.Phi(x, R = 1000, anti = FALSE)
+    MC2[i] &lt;- MC.Phi(x, R = 1000)
+}
+print(sd(MC1))</pre>
+
+<pre >## [1] 0.006874616</pre>
+
+<pre class = 'prettyprint lang-r'>print(sd(MC2))</pre>
+
+<pre >## [1] 0.0004392972</pre>
+
+<pre class = 'prettyprint lang-r'>print((var(MC1) - var(MC2))/var(MC1))</pre>
+
+<pre >## [1] 0.9959166</pre>
+
+</article></slide><slide class=""><hgroup><h2>Hint on Exercise 6.6</h2></hgroup><article  id="hint-on-exercise-6.6" class="smaller ">
+
+<p>Compare \(Var( \frac{1}{2}(e^U + e^V))\) with \(U,V \sim Uniform(0,1)\) to \(Var( \frac{1}{2}(e^U + e^{1-U}))\).</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>6.5 Control Variates (we can skip this)</h2></hgroup><article  id="control-variates-we-can-skip-this" class="smaller ">
+
+</article></slide><slide class=""><hgroup><h2>6.5 Control Variates background</h2></hgroup><article  id="control-variates-background" class="smaller ">
 
 <ul>
+<li>Discuss p.158-159.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.8 (MC integration using control variates)</h2></hgroup><article  id="example-6.8-mc-integration-using-control-variates" class="smaller ">
+
+<pre class = 'prettyprint lang-r'>f &lt;- function(u)
+    exp(-.5)/(1+u^2)
+
+g &lt;- function(u)
+    exp(-u)/(1+u^2)
+
+set.seed(510) #needed later
+u &lt;- runif(10000)
+B &lt;- f(u)
+A &lt;- g(u)
+cor(A, B)</pre>
+
+<pre >## [1] 0.9740585</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.8 (MC integration using control variates)</h2></hgroup><article  id="example-6.8-mc-integration-using-control-variates-1" class="smaller ">
+
+<pre class = 'prettyprint lang-r'>a &lt;- -cov(A,B) / var(B)    #est of c*
+a</pre>
+
+<pre >## [1] -2.436228</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.8 (MC integration using control variates)</h2></hgroup><article  id="example-6.8-mc-integration-using-control-variates-2" class="smaller ">
+
+<pre class = 'prettyprint lang-r'>m &lt;- 100000
+u &lt;- runif(m)
+T1 &lt;- g(u)
+T2 &lt;- T1 + a * (f(u) - exp(-.5)*pi/4)
+c(mean(T1), mean(T2))</pre>
+
+<pre >## [1] 0.5253543 0.5250021</pre>
+
+<pre class = 'prettyprint lang-r'>c(var(T1), var(T2))</pre>
+
+<pre >## [1] 0.060231423 0.003124814</pre>
+
+<pre class = 'prettyprint lang-r'>(var(T1) - var(T2)) / var(T1)</pre>
+
+<pre >## [1] 0.9481199</pre>
+
+</article></slide><slide class=""><hgroup><h2>6.5.1 Antithetic Variate as Control Variate</h2></hgroup><article  id="antithetic-variate-as-control-variate" class="smaller ">
+
+<ul>
+<li>Discussion</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>6.6 Importance sampling</h2></hgroup><article  id="importance-sampling" class="smaller ">
+
+<ul>
+<li>Introduction on p. 167.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.11, 6.12</h2></hgroup><article  id="example-6.11-6.12" class="smaller ">
+
+<ul>
+<li>walk through e-text</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>6.7 Stratified Sampling</h2></hgroup><article  id="stratified-sampling" class="smaller ">
+
+<ul>
+<li>Introduction on p. 172.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Proposition 6.2</h2></hgroup><article  id="proposition-6.2" class="smaller ">
+
+<p>Concluding remark: Stratification helps when means are the strata vary.</p>
+
+</article></slide><slide class=""><hgroup><h2>Example 6.13</h2></hgroup><article  id="example-6.13" class="smaller ">
+
+<p>From Rizzo’s repo.</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>6.8 Stratified Importance Sampling</h2></hgroup><article  id="stratified-importance-sampling" class="smaller ">
+
+<ul>
+<li>Discussion</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Exercise 6.15 hint</h2></hgroup><article  id="exercise-6.15-hint" class="smaller ">
+
+<ul>
+<li>Hint the inverse transform method.</li>
+<li>You will have to derive the inverse CDF of the importance function as in Example 6.11.</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Closing / Ch. 6 Problem set</h2></hgroup><article  id="closing-ch.-6-problem-set" class="smaller ">
+
+<ul>
+<li>Revisit HW.</li>
+<li>Questions?</li>
 <li>Students please summarize/ask questions about what we discussed today.</li>
-<li>6.1 (MC integration; see example 6.1,6.2)</li>
-<li>6.2 (MC <code>pnorm</code>; see example 6.3)</li>
-<li>6.3 (comparing MC estimators)</li>
-<li>Other questions?</li>
 </ul></article></slide>
 
 
