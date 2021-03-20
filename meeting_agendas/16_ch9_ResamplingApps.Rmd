@@ -1,0 +1,137 @@
+---
+title: "RESAMPLING APPLICATIONS"
+subtitle: "Chapter 9 SCR2e"
+author: "AG Schissler"
+date: "23 Mar 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 03232021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('16_ch9_ResamplingApps.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 9 Focus
+
+- Students Practice on Ch. 7 content.
+- Students receive and act on Ch. 5, 6 feedback.
+- Read Resampling techniques Ch. 8, 9.
+- Discuss Resampling techniques Ch. 8, 9.
+
+## Any questions on Ch.7 HW?
+
+- 7.1 Trimmed mean
+- 7.3 Power of $t-test$
+- 7.5 Run length encoding
+- 7.6 robustness of $t-interval$
+- 7.10 Gini index 
+- Project 7.D. (mvn tests of normality ; see `mlbench`package)
+
+## Today's plan
+
+i. Open with questions on Ch. 9 Problem Set to prime learning.
+ii. Discuss Ch. 9 the boostrap
+iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# Ch. 9 Resampling Applications Overview
+
+- Discuss motivation on p. 243
+- 9.1 Jackknife-after-Bootstrap
+- 9.2 Resampling for Regression Models
+- 9.3 Influence
+
+# I. Ch.9 HW
+
+- 9.4, 9.5, 9.6 (Resampling simple linear regression)
+
+# II. 9.1 Jackknife-after-Bootstrap
+
+## Example 9.1 (Jackknife-after-Bootstrap)
+
+Discuss.
+
+## Example 9.2 (Jackknife-after-Bootstrap)
+
+Discuss.
+
+## III. 9.2 Resampling for Regression Models
+
+- Discuss regression.
+- Think about modeling the outcomes $Y_j|x_j \sim N( \beta_0 + \beta_1x_j, \epsilon_j)$, instead of errors
+- Applied importance.
+ 
+## Example 9.3 (ironslag linear model)
+
+Discuss.
+
+## Example 9.4 (mammals data)
+
+Discuss.
+
+## 9.2.1 Resampling Cases
+
+- Why resample cases?
+
+## Example 9.5 (ironslag, resampling cases)
+
+Discuss.
+
+## Example 9.6 (Resampling cases using the `boot` function)
+
+Discuss.
+
+## R Note 9.1
+
+`broom` is convenient.
+
+## 9.2.2 Resampling Errors (Model Based)
+
+- Types of residuals: Table 9.1
+
+## Resampling erros: algorithm
+
+- Introduce.
+
+## Example 9.7 (Resampling errors: `mammals` data)
+
+Discuss.
+
+## Example 9.8 (Resampling errors, con`d)
+
+Discuss.
+
+## Example 9.9 (Using `boot` to sample errors;
+
+Optional.
+
+# IV. 9.3 Influence
+
+- Why this is important.
+
+## Empirical Infleunce Variance Statistics
+
+- Equation (9.5)
+
+## Example 9.10 (influence, `patch` ratio)
+
+Discuss.
+
+## 9.3.2 Jackknife-after-Bootstrap Plots
+
+- Interpret Figure 9.4.
+
+# Closing / Ch. 9 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.

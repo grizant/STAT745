@@ -1,0 +1,300 @@
+---
+title: "BOOTSTRAP AND JACKKNIFE"
+subtitle: "Chapter 8 SCR2e"
+author: "AG Schissler"
+date: "23 Mar 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 03232021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('15_ch8_BootstrapJackknife.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+
+# i. Week 9 Focus
+
+- Students Practice on Ch. 7 content.
+- Students receive and act on Ch. 5, 6 feedback.
+- Read Resampling techniques Ch. 8, 9.
+- Discuss Resampling techniques Ch. 8, 9.
+
+## Any questions on Ch.7 HW?
+
+- 7.1 Trimmed mean
+- 7.3 Power of $t-test$
+- 7.5 Run length encoding
+- 7.6 robustness of $t-interval$
+- 7.10 Gini index 
+- Project 7.D. (mvn tests of normality ; see `mlbench`package)
+
+## Today's plan
+
+i. Open with questions on Ch. 8 Problem Set to prime learning.
+ii. Discuss Ch. 8 the boostrap
+iii. Summarize, conclude, revisit Ch. 8 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# Ch. 8 Bootstrap and Jackknife Overview
+
+- 8.1 The Bootstrap
+- 8.2 The Jackknife
+- 8.3 Bootstrap Confidence Intervals
+- 8.4 Better Bootstrap CIs
+- 8.5 Application: Cross Validation
+
+# I. Ch.8, Ch.9 HW
+
+- 8.7 (Uncertainty in PCA variation explained)
+- 8.8 (Compare bootstrap and jackknife PCA)
+- 8.9 (Construct bootstrap CIs PCA)
+- 8.10, 8.11 (Cross Validation: Model selection via prediction)
+- 9.4, 9.5, 9.6 (Resampling simple linear regression)
+
+# II. 8.1 The Bootstrap
+
+- Discuss motivation on p.214
+- Sample with replacement of size $n$.
+
+## Example 8.1
+
+- Discuss briefly.
+
+## 8.1.1 Bootstrap Estimation of Standard Error
+
+- Discuss (8.1) on p.215
+ 
+## Example 8.2 (Bootstrap estimate of standard error)
+
+```{r, 82}
+library(bootstrap)    ## for the law data
+print(cor(law$LSAT, law$GPA))
+print(cor(law82$LSAT, law82$GPA))
+```
+
+## Example 8.2 (Bootstrap estimate of standard error)
+
+```{r, 82a}
+## set up the bootstrap
+B <- 200            ## number of replicates
+n <- nrow(law)      ## sample size
+R <- numeric(B)     ## storage for replicates
+## bootstrap estimate of standard error of R
+for (b in 1:B) {
+    ## randomly select the indices
+    i <- sample(1:n, size = n, replace = TRUE)
+    LSAT <- law$LSAT[i]       ## i is a vector of indices
+    GPA <- law$GPA[i]
+    R[b] <- cor(LSAT, GPA)
+}
+## output
+print(se.R <- sd(R))
+```
+
+## Example 8.2 (Bootstrap estimate of standard error)
+
+```{r, 82b}
+hist(R, prob = TRUE)
+```
+
+## Example 8.3 (SE estimate via `boot` )
+
+```{r, 83}
+r <- function(x, i) {
+    ## want correlation of columns 1 and 2
+    cor(x[i,1], x[i,2])
+}
+library(boot)       ## for boot function
+obj <- boot(data = law, statistic = r, R = 2000)
+```
+
+## Example 8.3 (SE estimate via `boot` )
+
+```{r, 83a}
+obj
+y <- obj$t
+sd(y)
+```
+
+## 8.1.2 Bootstrap Estimation of Bias
+
+- Equation (8.2)
+
+##  Example 8.4 (Bootstrap estimate of bias)
+
+```{r, 84}
+## sample estimate for n=15
+theta.hat <- cor(law$LSAT, law$GPA)
+## bootstrap estimate of bias
+B <- 2000   ## larger for estimating bias
+n <- nrow(law)
+theta.b <- numeric(B)
+for (b in 1:B) {
+    i <- sample(1:n, size = n, replace = TRUE)
+    LSAT <- law$LSAT[i]
+    GPA <- law$GPA[i]
+    theta.b[b] <- cor(LSAT, GPA)
+}
+bias <- mean(theta.b - theta.hat)
+bias
+```
+
+##  Example 8.5 (Bootstrap bias of a ratio estimator)
+
+```{r, 85}
+data(patch, package = "bootstrap")
+head(patch)
+```
+
+##  Example 8.5 (Bootstrap bias of a ratio estimator)
+
+```{r, 85a}
+n <- nrow(patch)  ## in bootstrap package
+B <- 2000
+theta.b <- numeric(B)
+theta.hat <- mean(patch$y) / mean(patch$z)
+## bootstrap
+for (b in 1:B) {
+    i <- sample(1:n, size = n, replace = TRUE)
+    y <- patch$y[i]
+    z <- patch$z[i]
+    theta.b[b] <- mean(y) / mean(z)
+}
+bias <- mean(theta.b) - theta.hat
+se <- sd(theta.b)
+```
+
+##  Example 8.5 (Bootstrap bias of a ratio estimator)
+
+```{r, 85b}
+print(list(est=theta.hat, bias = bias,
+           se = se, cv = bias/se))
+```
+
+# III. 8.2 The Jackknife
+
+- Difference between bootstrap
+
+
+## Jackknife Estimation of Bias
+
+- Discuss (8.3)
+
+##  Example 8.6 (Jackknife estimate of bias)
+
+```{r, 86}
+data(patch, package = "bootstrap")
+n <- nrow(patch)
+y <- patch$y
+z <- patch$z
+theta.hat <- mean(y) / mean(z)
+print (theta.hat)
+```
+
+##  Example 8.6 (Jackknife estimate of bias)
+
+```{r, 86a}
+## compute the jackknife replicates, leave-one-out estimates
+theta.jack <- numeric(n)
+for (i in 1:n)
+    theta.jack[i] <- mean(y[-i]) / mean(z[-i])
+bias <- (n - 1) * (mean(theta.jack) - theta.hat)
+print(bias)  ## jackknife estimate of bias
+```
+
+## Jackknife Estimation of SE
+
+- Discuss (8.4)
+
+##  Example 8.7 (Jackknife estimate of standard error)
+
+```{r, 87}
+se <- sqrt((n-1) *
+           mean((theta.jack - mean(theta.jack))^2))
+print(se)
+```
+
+## When the jackknife fails
+
+- When estimator is not smooth, "plug-in"
+- perturbations greatly increase variance
+
+## Example 8.8 (Failure of jackknife)
+
+```{r, 88}
+n <- 10
+x <- sample(1:100, size = n)
+
+## jackknife estimate of se
+M <- numeric(n)
+for (i in 1:n) {        ## leave one out
+    y <- x[-i]
+    M[i] <- median(y)
+}
+Mbar <- mean(M)
+print(sqrt((n-1)/n * sum((M - Mbar)^2)))
+```
+
+## Example 8.8 (Failure of jackknife)
+
+```{r, 88a}
+## bootstrap estimate of se
+Mb <- replicate(1000, expr = {
+    y <- sample(x, size = n, replace = TRUE)
+    median(y) })
+print(sd(Mb)) 
+print(x)
+print(M)
+```
+
+## Example 8.8 (Failure of jackknife)
+
+```{r, 88b}
+print(Mb)
+```
+
+# IV. 8.3/8.4 Bootstrap Confidence Intervals
+
+## 8.3.1 - 8.3.3: Basic CI approaches
+
+## 8.3.4 The Bootstrap $t$ Interval
+
+- Discuss difference between "t type" and classical t-intervals.
+
+## Examples 8.11, 8.12
+
+Discussion via textbook.
+
+## 8.4 Better Bootstrap CIs
+
+- Brief discussion.
+- Examples 8.13-8.15.
+
+# V. 8.5 Application: Cross Validation
+
+- Discuss importance of prediction to select models
+- Jackknife-like procedure.
+- Generalize to $n-$fold CV.
+
+## Example 8.16
+
+- Discuss example via textbook.
+
+## Example 8.17
+
+- Discuss example via textbook.
+
+# Closing / Ch. 8 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.
