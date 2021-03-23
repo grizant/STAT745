@@ -286,7 +286,7 @@ Discussion via textbook.
 - BCa CIs are *transformation* respecting and *2nd order accurate*.
 - Meanwhile, bootstrap $t$ CIs are 2nd order accurate but not transformation respecting. 
 - Bootstrap percentile CI is transformation respecting but 1st order accurate.
-- Standard normal has none of these properties.
+- Standard normal CI has none of these properties.
 - Punchline: use BCa in practice.
 - Examples 8.13-8.15.
 
