@@ -19,11 +19,10 @@ library(printr)
 
 <!-- open up etext as you go. don't typeset the chapter -->
 
-
 # i. Week 9 Focus
 
 - Students Practice on Ch. 7 content.
-- Students receive and act on Ch. 5, 6 feedback.
+- Students receive and act on Ch. 6 feedback.
 - Read Resampling techniques Ch. 8, 9.
 - Discuss Resampling techniques Ch. 8, 9.
 
@@ -33,8 +32,8 @@ library(printr)
 - 7.3 Power of $t-test$
 - 7.5 Run length encoding
 - 7.6 robustness of $t-interval$
-- 7.10 Gini index 
-- Project 7.D. (mvn tests of normality ; see `mlbench`package)
+- 7.10 Gini index (Note: Bernoulli(0.1) can produce sample means of 0, which yields a Gini index of `NaN`)
+- Project 7.D. (mvn tests of normality ; see `mlbench` package)
 
 ## Today's plan
 
@@ -73,7 +72,7 @@ iii. Summarize, conclude, revisit Ch. 8 Problem prompt discussion / hints time r
 
 - Discuss (8.1) on p.215
  
-## Example 8.2 (Bootstrap estimate of standard error)
+## Example 8.2 (Bootstrap estimate of SE)
 
 ```{r, 82}
 library(bootstrap)    ## for the law data
@@ -81,7 +80,7 @@ print(cor(law$LSAT, law$GPA))
 print(cor(law82$LSAT, law82$GPA))
 ```
 
-## Example 8.2 (Bootstrap estimate of standard error)
+## Example 8.2 (Bootstrap estimate of SE)
 
 ```{r, 82a}
 ## set up the bootstrap
@@ -100,7 +99,7 @@ for (b in 1:B) {
 print(se.R <- sd(R))
 ```
 
-## Example 8.2 (Bootstrap estimate of standard error)
+## Example 8.2 (Bootstrap estimate of SE)
 
 ```{r, 82b}
 hist(R, prob = TRUE)
@@ -127,6 +126,7 @@ sd(y)
 
 ## 8.1.2 Bootstrap Estimation of Bias
 
+- The sample mean of the replicates is unbiased for *its*  expected value $E[\hat{\theta^*}]$.
 - Equation (8.2)
 
 ##  Example 8.4 (Bootstrap estimate of bias)
@@ -183,7 +183,7 @@ print(list(est=theta.hat, bias = bias,
 # III. 8.2 The Jackknife
 
 - Difference between bootstrap
-
+- Discuss "plug-in" $\hat{\theta}$ as a smooth estimator.
 
 ## Jackknife Estimation of Bias
 
@@ -215,7 +215,7 @@ print(bias)  ## jackknife estimate of bias
 
 - Discuss (8.4)
 
-##  Example 8.7 (Jackknife estimate of standard error)
+##  Example 8.7 (Jackknife estimate of SE)
 
 ```{r, 87}
 se <- sqrt((n-1) *
@@ -227,6 +227,7 @@ print(se)
 
 - When estimator is not smooth, "plug-in"
 - perturbations greatly increase variance
+- Try the delete-$d$ jackknife instead. Or just bootstrap.
 
 ## Example 8.8 (Failure of jackknife)
 
@@ -266,9 +267,14 @@ print(Mb)
 
 ## 8.3.1 - 8.3.3: Basic CI approaches
 
+- Standard normal should be familiar and relies on CLT.
+- Basic CIs *pivot* by substracting the observed statistic
+- Percentile-based.
+
 ## 8.3.4 The Bootstrap $t$ Interval
 
 - Discuss difference between "t type" and classical t-intervals.
+- Discuss algorithm on p.229.
 
 ## Examples 8.11, 8.12
 
@@ -276,7 +282,12 @@ Discussion via textbook.
 
 ## 8.4 Better Bootstrap CIs
 
-- Brief discussion.
+- Good example of sample proportion sampling distribution and problems with CI construction on p.232.
+- BCa CIs are *transformation* respecting and *2nd order accurate*.
+- Meanwhile, bootstrap $t$ CIs are 2nd order accurate but not transformation respecting. 
+- Bootstrap percentile CI is transformation respecting but 1st order accurate.
+- Standard normal has none of these properties.
+- Punchline: use BCa in practice.
 - Examples 8.13-8.15.
 
 # V. 8.5 Application: Cross Validation
