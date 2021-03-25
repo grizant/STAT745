@@ -37,9 +37,10 @@ library(printr)
 
 ## Today's plan
 
-i. Open with questions on Ch. 9 Problem Set to prime learning.
-ii. Discuss Ch. 9 the boostrap
-iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining
+i. Finish Ch.9 discussion with leave-one-out CV.
+ii. Open with questions on Ch. 9 Problem Set to prime learning.
+iii. Discuss Ch. 9 the boostrap
+iv. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining
 
 *Please contribute questions and comments*
 
