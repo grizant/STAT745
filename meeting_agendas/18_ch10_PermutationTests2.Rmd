@@ -1,0 +1,150 @@
+---
+title: "PERMUTATION TESTS"
+subtitle: "Chapter 10 SCR2e, Part 2"
+author: "AG Schissler"
+date: "1 Apr 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 04012021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('17_ch10_PermutationTests1.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 10 Focus
+
+- Students Practice on Ch. 8, 9 content.
+- Students receive and act on Ch. 7 feedback.
+- Read Permutation Tests Ch. 10.
+- Discuss Permutation Tests Ch. 10.
+
+## Any questions on Ch.8, 9 HW?
+
+- 8.7 - 8.11
+- 9.4 - 9.6
+
+## Today's plan
+
+i. Open with questions on Ch. 10 Problem Set to prime learning.
+ii. Discuss Ch. 10 the boostrap
+iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# Ch.10 Permutation Tests
+
+- 10.1 Introduction
+- 10.2 Tests of Equal Distributions
+- 10.3 Multivariate Tests for Equal Distributions
+- 10.4 Application: Distance Correlation
+
+# I. Ch.10 HW
+
+- 10.1 - 10.3, 10.6
+
+# II. 10. 1 Introduction
+
+- Permutation tests are powerful nonparametric, computer-intensive procedures.
+- Here Rizzo provides a precise way to notate the permutation distribution.
+- The idea is to *pool* together the samples.
+- Then partition randomly to get a "null" reference distribution, an approximate sampling distribution.
+
+## Example 10.1.
+
+Permutation distribution of a statistic
+
+
+# 10.2 Tests of Equal Distributions
+
+- 2-sample tests for 1D data.
+- Example 10.2
+- Example 10.3
+
+## Example 10.2
+
+Permutation distribution of the K-S statistic
+
+## Example 10.3
+
+- Permutation distribution of the K-S statistic
+- (Example 10.2, cont.)
+
+# 10.3 Multivariate Tests for Equal Distributions
+
+- 10.3.1 Nearest Neighbor Tests (optional)
+- 10.3.2 Energy Test for Equal Distributions
+
+## - 10.3.1 Nearest Neighbor Tests (optional)
+
+##  Using `yaImpute`.
+
+##  Example 10.4
+
+Finding nearest neighbors
+
+##  Example 10.5
+
+Nearest neighbor statistic
+
+##  Example 10.6
+
+Nearest neighbor test
+
+## 10.3.2 Energy Test for Equal Distributions
+
+## Example 10.7
+
+Two-sample energy statistic
+
+## Note `energy` package
+
+- Use `energy` package for optimized code (instead of Rizzo's implementation).
+- In general, finding a good package for your research is a good idea (or making one if there is a gap!)
+
+## Example 10.8 
+
+Two-sample energy test
+
+## Example 10.9 
+
+k-sample energy distances
+
+## Example 10.10
+
+Distance Components (disco)
+
+## Example 10.11
+
+Power Comparison
+
+# 10.4 Application: Distance Correlation
+
+- Interesting dependence measure, very general.
+- Definition 10.1 empirical distance covariance 
+- Definition 10.2 empirical distance correlation
+
+## Example 10.12 
+
+Distance covariance statistic
+
+## Example 10.13 
+
+Distance correlation statistic
+
+## Example 10.14 
+
+Distance covariance test
+
+# Closing / Ch. 10 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.
