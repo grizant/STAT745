@@ -13,7 +13,8 @@ output:
 set.seed( 03302021 )
 library(tidyverse)
 library(printr)
-## xaringan::inf_mr('17_ch10_PermutationTests1.Rmd')
+## f <- '17_ch10_PermutationTests1.Rmd'
+## xaringan::inf_mr(f)
 ## str(knitr::opts_chunk$get())
 ```
 
@@ -33,9 +34,9 @@ library(printr)
 
 ## Today's plan
 
-i. Open with questions on Ch. 10 Problem Set to prime learning.
-ii. Discuss Ch. 10 the boostrap
-iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining
+i. Open with questions on Ch.10 Problem Set to prime learning.
+ii. Discuss Ch.10 Permutation Tests, more time on examples
+iii. Summarize, conclude, revisit Ch.10 Problem prompt discussion / hints time remaining
 
 *Please contribute questions and comments*
 
@@ -57,10 +58,47 @@ iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time r
 - The idea is to *pool* together the samples.
 - Then partition randomly to get a "null" reference distribution, an approximate sampling distribution.
 
-## Example 10.1.
+## Example 10.1 Permutation distr. of $t$
 
-Permutation distribution of a statistic
+```{r, 101a, fig.align='center'}
+attach(chickwts)
+x <- sort(weight[feed == "soybean"])
+y <- sort(weight[feed == "linseed"])
+detach(chickwts)
+par( mfrow = c(1,2) )
+hist(x, breaks=8); hist(y, breaks=8)
+par( mfrow = c(1,1) )
+```
 
+## Example 10.1 Permutation distr. of $t$
+
+```{r, 101b}
+R <- 999              #number of replicates
+z <- c(x, y)          #pooled sample
+K <- 1:length(z)
+reps <- numeric(R)   #storage for replicates
+t0 <- t.test(x, y)$statistic
+```
+
+## Example 10.1 Permutation distr. of $t$
+
+```{r, 101c}
+for (i in 1:R) {
+    k <- sample(K, size = 14, replace = FALSE)
+    x1 <- z[k]
+    y1 <- z[-k]      #complement of x1
+    reps[i] <- t.test(x1, y1)$statistic
+}
+(p <- mean(c(t0, reps) >= t0))
+```
+
+## Example 10.1 Permutation distr. of $t$
+
+```{r, 101d}
+hist(reps, main = "", freq = FALSE, xlab = "T (p = 0.202)",
+     breaks = "scott")
+points(t0, 0, cex = 1, pch = 16)      #observed T
+```
 
 # 10.2 Tests of Equal Distributions
 
@@ -68,83 +106,76 @@ Permutation distribution of a statistic
 - Example 10.2
 - Example 10.3
 
-## Example 10.2
+## Example 10.2 Permutation distr. K-S
 
-Permutation distribution of the K-S statistic
+```{r, 102}
+R <- 999             #number of replicates
+z <- c(x, y)         #pooled sample
+K <- 1:26
+D <- numeric(R)      #storage for replicates
+options(warn = -1)
+(D0 <- ks.test(x, y, exact = FALSE)$statistic)
+```
 
-## Example 10.3
+## Example 10.2 Permutation distr. K-S
 
-- Permutation distribution of the K-S statistic
-- (Example 10.2, cont.)
+```{r, 102b}
+for (i in 1:R) {
+    k <- sample(K, size = 14, replace = FALSE)
+    x1 <- z[k]
+    y1 <- z[-k]      #complement of x1
+    D[i] <- ks.test(x1, y1, exact = FALSE)$statistic
+}
+p <- mean(c(D0, D) >= D0)
+options(warn = 0)
+p
+```
 
-# 10.3 Multivariate Tests for Equal Distributions
+## Example 10.2 Permutation distr. K-S
 
-- 10.3.1 Nearest Neighbor Tests (optional)
-- 10.3.2 Energy Test for Equal Distributions
+```{r, 102d}
+hist(D, main = "", freq = FALSE, xlab = "D (p = 0.46)",
+     breaks = "scott")
+points(D0, 0, cex = 1, pch = 16)      #observed D
+```
 
-## - 10.3.1 Nearest Neighbor Tests (optional)
+## Example 10.3, different groups K-S
 
-##  Using `yaImpute`.
+```{r, 103a}
+attach(chickwts)
+x <- sort(weight[feed == "sunflower"])
+y <- sort(weight[feed == "linseed"])
+detach(chickwts)
+summary(cbind(x, y))
+```
 
-##  Example 10.4
+## Example 10.3, different groups K-S
 
-Finding nearest neighbors
+```{r, 103b}
+options(warn = -1)
+D0 <- ks.test(x, y, exact = FALSE)$statistic
+for (i in 1:R) {
+    k <- sample(K, size = 14, replace = FALSE)
+    x1 <- z[k]
+    y1 <- z[-k]      #complement of x1
+    D[i] <- ks.test(x1, y1, exact = FALSE)$statistic
+}
+p <- mean(c(D0, D) >= D0)
+options(warn = 0)
+p
+```
 
-##  Example 10.5
+## Example 10.3, different groups K-S
 
-Nearest neighbor statistic
-
-##  Example 10.6
-
-Nearest neighbor test
-
-## 10.3.2 Energy Test for Equal Distributions
-
-## Example 10.7
-
-Two-sample energy statistic
-
-## Note `energy` package
-
-- Use `energy` package for optimized code (instead of Rizzo's implementation).
-- In general, finding a good package for your research is a good idea (or making one if there is a gap!)
-
-## Example 10.8 
-
-Two-sample energy test
-
-## Example 10.9 
-
-k-sample energy distances
-
-## Example 10.10
-
-Distance Components (disco)
-
-## Example 10.11
-
-Power Comparison
-
-# 10.4 Application: Distance Correlation
-
-- Interesting dependence measure, very general.
-- Definition 10.1 empirical distance covariance 
-- Definition 10.2 empirical distance correlation
-
-## Example 10.12 
-
-Distance covariance statistic
-
-## Example 10.13 
-
-Distance correlation statistic
-
-## Example 10.14 
-
-Distance covariance test
+```{r, 103c}
+p <- round(p, 3)
+hist(D, main = "", freq = FALSE, xlab = paste0("D (p = ",p,")"),
+     breaks = "scott")
+points(D0, 0, cex = 1, pch = 16)      #observed D
+```
 
 # Closing / Ch. 10 Problem set
 
-- Revisit HW.
+- Revisit HW Ch.10: 10.1 - 10.3, 10.6
 - Questions?
 - Students please summarize/ask questions about what we discussed today.

@@ -34,8 +34,8 @@ library(printr)
 ## Today's plan
 
 i. Open with questions on Ch. 10 Problem Set to prime learning.
-ii. Discuss Ch. 10 the boostrap
-iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining
+ii. Discuss Ch. 10 Problems
+iii. Summarize, conclude, revisit Ch. 10 Problem prompt discussion / hints time remaining
 
 *Please contribute questions and comments*
 
@@ -50,41 +50,33 @@ iii. Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time r
 
 - 10.1 - 10.3, 10.6
 
-# II. 10. 1 Introduction
-
-- Permutation tests are powerful nonparametric, computer-intensive procedures.
-- Here Rizzo provides a precise way to notate the permutation distribution.
-- The idea is to *pool* together the samples.
-- Then partition randomly to get a "null" reference distribution, an approximate sampling distribution.
-
-## Example 10.1.
-
-Permutation distribution of a statistic
-
-
-# 10.2 Tests of Equal Distributions
-
-- 2-sample tests for 1D data.
-- Example 10.2
-- Example 10.3
-
-## Example 10.2
-
-Permutation distribution of the K-S statistic
-
-## Example 10.3
-
-- Permutation distribution of the K-S statistic
-- (Example 10.2, cont.)
-
 # 10.3 Multivariate Tests for Equal Distributions
 
-- 10.3.1 Nearest Neighbor Tests (optional)
+- 10.3.1 Nearest Neighbor Tests
 - 10.3.2 Energy Test for Equal Distributions
 
-## - 10.3.1 Nearest Neighbor Tests (optional)
+## 10.3.1 Nearest Neighbor Tests
+
+- Notation/Discussion
+- Found it is interesting that 
+
+> "In general, if the sampled distributions are equal, the pooled sample has on average less nearest neighbor coincidences than under the alternative hypothesis".
+
+Counterintuitive at first... 
+
+## Remark 10.1 
+
+- This remark is interesting on the motivation behind why choose permutation test opposed to bootstrap.
+- Ties are always a consideration in probability calculation
+- Ties occur for discrete rvs and resampled values (same values chosen)
+- Assuming continous motivates sampling *without replacing* in the permutation space.
 
 ##  Using `yaImpute`.
+
+```{r yaImpute}
+library(yaImpute)
+help( package = 'yaImpute' )
+```
 
 ##  Example 10.4
 

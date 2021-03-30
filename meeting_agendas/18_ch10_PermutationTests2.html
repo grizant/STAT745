@@ -3112,7 +3112,68 @@ slide:not(.current) .plotly.html-widget{
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-            
+            a.sourceLine { display: inline-block; line-height: 1.25; }
+    a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+    a.sourceLine:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode { white-space: pre; position: relative; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    code.sourceCode { white-space: pre-wrap; }
+    a.sourceLine { text-indent: -1em; padding-left: 1em; }
+    }
+    pre.numberSource a.sourceLine
+      { position: relative; left: -4em; }
+    pre.numberSource a.sourceLine::before
+      { content: attr(data-line-number);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; pointer-events: all; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  }
+    @media screen {
+    a.sourceLine::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+        
   </style>
 
 
@@ -3128,7 +3189,7 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">1 Apr 2021 (<em>updated: 2021-03-25)</em></p>
+            <p style="margin-top: 6px; margin-left: -2px;">1 Apr 2021 (<em>updated: 2021-03-30)</em></p>
           </hgroup>
   </slide>
 
@@ -3154,8 +3215,8 @@ slide:not(.current) .plotly.html-widget{
 
 <ol>
 <li>Open with questions on Ch. 10 Problem Set to prime learning.</li>
-<li>Discuss Ch. 10 the boostrap</li>
-<li>Summarize, conclude, revisit Ch. 9 Problem prompt discussion / hints time remaining</li>
+<li>Discuss Ch. 10 Problems</li>
+<li>Summarize, conclude, revisit Ch. 10 Problem prompt discussion / hints time remaining</li>
 </ol>
 
 <p><em>Please contribute questions and comments</em></p>
@@ -3175,48 +3236,155 @@ slide:not(.current) .plotly.html-widget{
 <li>10.1 - 10.3, 10.6</li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>II. 10. 1 Introduction</h2></hgroup><article  id="ii.-10.-1-introduction" class="smaller ">
-
-<ul>
-<li>Permutation tests are powerful nonparametric, computer-intensive procedures.</li>
-<li>Here Rizzo provides a precise way to notate the permutation distribution.</li>
-<li>The idea is to <em>pool</em> together the samples.</li>
-<li>Then partition randomly to get a &ldquo;null&rdquo; reference distribution, an approximate sampling distribution.</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Example 10.1.</h2></hgroup><article  id="example-10.1." class="smaller ">
-
-<p>Permutation distribution of a statistic</p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>10.2 Tests of Equal Distributions</h2></hgroup><article  id="tests-of-equal-distributions" class="smaller ">
-
-<ul>
-<li>2-sample tests for 1D data.</li>
-<li>Example 10.2</li>
-<li>Example 10.3</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Example 10.2</h2></hgroup><article  id="example-10.2" class="smaller ">
-
-<p>Permutation distribution of the K-S statistic</p>
-
-</article></slide><slide class=""><hgroup><h2>Example 10.3</h2></hgroup><article  id="example-10.3" class="smaller ">
-
-<ul>
-<li>Permutation distribution of the K-S statistic</li>
-<li>(Example 10.2, cont.)</li>
-</ul>
-
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>10.3 Multivariate Tests for Equal Distributions</h2></hgroup><article  id="multivariate-tests-for-equal-distributions" class="smaller ">
 
 <ul>
-<li>10.3.1 Nearest Neighbor Tests (optional)</li>
+<li>10.3.1 Nearest Neighbor Tests</li>
 <li>10.3.2 Energy Test for Equal Distributions</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>- 10.3.1 Nearest Neighbor Tests (optional)</h2></hgroup><article  id="nearest-neighbor-tests-optional" class="smaller ">
+</article></slide><slide class=""><hgroup><h2>10.3.1 Nearest Neighbor Tests</h2></hgroup><article  id="nearest-neighbor-tests" class="smaller ">
+
+<ul>
+<li>Notation/Discussion</li>
+<li>Found it is interesting that</li>
+</ul>
+
+<blockquote>
+<p>&ldquo;In general, if the sampled distributions are equal, the pooled sample has on average less nearest neighbor coincidences than under the alternative hypothesis&rdquo;.</p>
+</blockquote>
+
+<p>Counterintuitive at first…</p>
+
+</article></slide><slide class=""><hgroup><h2>Remark 10.1</h2></hgroup><article  id="remark-10.1" class="smaller ">
+
+<ul>
+<li>This remark is interesting on the motivation behind why choose permutation test opposed to bootstrap.</li>
+<li>Ties are always a consideration in probability calculation</li>
+<li>Ties occur for discrete rvs and resampled values (same values chosen)</li>
+<li>Assuming continous motivates sampling <em>without replacing</em> in the permutation space.</li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Using <code>yaImpute</code>.</h2></hgroup><article  id="using-yaimpute." class="smaller ">
+
+<pre class = 'prettyprint lang-r'>library(yaImpute)</pre>
+
+<pre >## 
+## Attaching package: &#39;yaImpute&#39;</pre>
+
+<pre >## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     vars</pre>
+
+<pre >## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     vars</pre>
+
+<pre class = 'prettyprint lang-r'>help( package = &#39;yaImpute&#39; )</pre>
+
+<pre >##      Information on package &#39;yaImpute&#39;
+## 
+## Description:
+## 
+## Package:                            yaImpute
+## Version:                            1.0-32
+## Date:                               2020-02-13
+## Title:                              Nearest Neighbor Observation
+##                                     Imputation and Evaluation Tools
+## Author:                             Nicholas L. Crookston, Andrew O.
+##                                     Finley, John Coulston (Sunil Arya
+##                                     and David Mount for ANN)
+## Copyright:                          ANN library is copyright University
+##                                     of Maryland and Sunil Arya and
+##                                     David Mount. See file COPYRIGHTS
+##                                     for details.
+## Maintainer:                         Nicholas L. Crookston
+##                                     &lt;ncrookston.fs@gmail.com&gt;
+## Depends:                            R (&gt;= 3.0.0)
+## Imports:                            grDevices, graphics, stats, utils
+## Suggests:                           vegan, ccaPP, randomForest, gam,
+##                                     fastICA, parallel, gower
+## NeedsCompilation:                   yes
+## Description:                        Performs nearest neighbor-based
+##                                     imputation using one or more
+##                                     alternative approaches to
+##                                     processing multivariate data. These
+##                                     include methods based on canonical
+##                                     correlation analysis, canonical
+##                                     correspondence analysis, and a
+##                                     multivariate adaptation of the
+##                                     random forest classification and
+##                                     regression techniques of Leo
+##                                     Breiman and Adele Cutler.
+##                                     Additional methods are also
+##                                     offered. The package includes
+##                                     functions for comparing the results
+##                                     from running alternative
+##                                     techniques, detecting imputation
+##                                     targets that are notably distant
+##                                     from reference observations,
+##                                     detecting and correcting for bias,
+##                                     bootstrapping and building ensemble
+##                                     imputations, and mapping results.
+## License:                            GPL (&gt;= 2)
+## Repository:                         CRAN
+## Repository/R-Forge/Project:         yaimpute
+## Repository/R-Forge/Revision:        105
+## Repository/R-Forge/DateTimeStamp:   2020-02-13 20:41:20
+## Date/Publication:                   2020-02-17 18:00:02 UTC
+## Packaged:                           2020-02-13 20:50:10 UTC; rforge
+## Built:                              R 4.0.2; x86_64-apple-darwin17.0;
+##                                     2020-07-15 07:35:14 UTC; unix
+## 
+## Index:
+## 
+## AsciiGridImpute         Imputes/Predicts data for Ascii Grid maps
+## MoscowMtStJoe           Moscow Mountain and St. Joe Woodlands (Idaho,
+##                         USA) Tree and LiDAR Data
+## TallyLake               Tally Lake, Flathead National Forest, Montana,
+##                         USA
+## ann                     Approximate nearest neighbor search routines
+## applyMask               Removes neighbors that share (or not) group
+##                         membership with targets.
+## bestVars                Computes the number of _best_ X-variables
+## buildConsensus          Finds the consensus imputations among a list of
+##                         yai objects
+## compare.yai             Compares different k-NN solutions
+## cor.yai                 Correlation between observed and imputed
+## correctBias             Correct bias by selecting different near
+##                         neighbors
+## ensembleImpute          Computes the mean, median, or mode among a list
+##                         of impute.yai objects
+## errorStats              Compute error components of k-NN imputations
+## foruse                  Report a complete imputation
+## grmsd                   Generalized Root Mean Square Distance Between
+##                         Observed and Imputed Values
+## impute.yai              Impute variables from references to targets
+## mostused                Tabulate references most often used in
+##                         imputation
+## newtargets              Finds K nearest neighbors for new target
+##                         observations
+## notablyDifferent        Finds obervations with large differences
+##                         between observed and imputed values
+## notablyDistant          Find notably distant targets
+## plot.compare.yai        Plots a compare.yai object
+## plot.notablyDifferent   Plots the scaled root mean square differences
+##                         between observed and predicted
+## plot.varSel             Boxplot of mean Mahalanobis distances from
+##                         varSelection()
+## plot.yai                Plot observed verses imputed data
+## predict.yai             Generic predict function for class yai
+## print.yai               Print a summary of a yai object
+## rmsd.yai                Root Mean Square Difference between observed
+##                         and imputed
+## unionDataJoin           Combines data from several sources
+## varSelection            Select variables for imputation models
+## vars                    List variables in a yai object
+## whatsMax                Find maximum column for each row
+## yai                     Find K nearest neighbors
+## yaiRFsummary            Build Summary Data For Method RandomForest
+## yaiVarImp               Reports or plots importance scores for yai
+##                         method randomForest</pre>
 
 </article></slide><slide class=""><hgroup><h2>Example 10.4</h2></hgroup><article  id="example-10.4" class="smaller ">
 
