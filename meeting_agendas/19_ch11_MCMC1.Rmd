@@ -323,7 +323,17 @@ Notice what happens to the acceptance ratio if $f( \cdot )$ is a posterior pdf:
 
 Derivation on iPad
 
-- See Example 11.8 for more reading.
+## Example 11.3-11.5 Expected lifetime beta-binomial model
+
+- Detailed example of Bayesian inference via MCMC and designing M-H algorithms.
+
+## Other MCMC packages
+
+- `coda`
+- `MCMCpack`
+- `mcmc`
+- `ggmcmc`
+- `gibbs.met`
 
 ## 11.2.2 The Metropolis Sampler (1953)
 
