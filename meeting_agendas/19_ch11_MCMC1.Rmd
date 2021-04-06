@@ -40,6 +40,50 @@ iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time 
 
 *Please contribute questions and comments*
 
+## Permutation test example corrected
+
+- Before we begin on Ch.11, let's revisit Example 10.3.
+- The textbook displays the correct results, but the code is not reproducible from the git repo `SCR`.
+
+## Example 10.3, different groups K-S
+
+```{r, 103a}
+attach(chickwts)
+x <- sort(weight[feed == "sunflower"])
+y <- sort(weight[feed == "linseed"])
+(n <- length(x)); (m <- length(y))
+z <- c(x, y)         #pooled sample
+detach(chickwts)
+```
+
+## Example 10.3, different groups K-S
+
+```{r, 103b}
+options(warn = -1)
+D0 <- ks.test(x, y, exact = FALSE)$statistic
+K = 1:(n+m); R = 999; D <- numeric(R)
+for (i in 1:R) {
+    ## k <- sample(K, size = 14, replace = FALSE)
+    k <- sample(K, size = n, replace = FALSE)
+    x1 <- z[k]
+    ## complement of x1
+    y1 <- z[-k] #gives incorrect answer when size hardcoded
+    D[i] <- ks.test(x1, y1, exact = FALSE)$statistic
+}
+p <- mean(c(D0, D) >= D0)
+options(warn = 0)
+p
+```
+
+## Example 10.3, different groups K-S
+
+```{r, 103c}
+p <- round(p, 3)
+hist(D, main = "", freq = FALSE, xlab = paste0("D (p = ",p,")"),
+     breaks = "scott", xlim = c(0,1))
+points(D0, 0, cex = 1, pch = 16)      #observed D
+```
+
 # Ch. 11 MCMC
 
 - 11.1 Introduction: MCMC / Bayes inference
@@ -66,7 +110,7 @@ iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time 
 
 Wait, what _is_ a Markov Chain?
 
-**Def'n 2.A**: A Markov Chain is a stochastic process $\{ X_t \}$ indxed over $t \geq 0$ that exists on a _state space_ $\chi$ such that if $\chi$ is the space $\{ 0,1,2,\ldots \}$ (special case: countable for simplicity), then $p_{ij}=P(X_{t+1} = j | X_t = i)=P(X_{t+1} = j | X_t = i, X_{t-1} = i_{t-1}, X_{t-2} = i_{t-2}, \ldots, X_1 = i_1, X_0 = i_0)$.
+**Def'n 2.A**: A Markov Chain is a stochastic process $\{ X_t \}$ indexed over $t \geq 0$ that exists on a _state space_ $\chi$ such that if $\chi$ is the space $\{ 0,1,2,\ldots \}$ (special case: countable for simplicity), then $p_{ij}=P(X_{t+1} = j | X_t = i)=P(X_{t+1} = j | X_t = i, X_{t-1} = i_{t-1}, X_{t-2} = i_{t-2}, \ldots, X_1 = i_1, X_0 = i_0)$.
 
 I.e., the *transition probability* of moving from state $i$ to state $j$ depends only on the current state $i$ (and not the history). They are commonly used to model systems with short memories, such as the stock market. 
 
@@ -82,7 +126,7 @@ Let the *transition matrix* be ${\bf P} = \{ p_{ij} \}$ and consider a finite st
 
 **Def'n 2.E**:  A chain is *aperiodic* if all states have period 1.
 
-**Def'n 2.F**: A positive recurrent, aperiodic state is *ergodic* (if all states are in the chain are ergodic, the chain is said to be erogic).
+**Def'n 2.F**: A positive recurrent, aperiodic state is *ergodic* (if all states are in the chain are ergodic, the chain is said to be ergodic).
 
 ## Markov chain definitions
 
@@ -93,7 +137,7 @@ $$
 \pi_j = \sum^{\infty}_{i=0} \pi_i p_{ij} \: (j \geq 0) \: \mathrm{and}  \sum^{\infty}_{i=0} \pi_j = 1.
 $$
 
-View the statitionary distribution $\{ \pi_j \}$ as the (limiting) proportion of time that the chain rests in state $j$.
+Informally, the statitionary distribution $\{ \pi_j \}$ is the (limiting) proportion of time that the chain rests in state $j$.
 
 ## Basic Markov Chain example
 
