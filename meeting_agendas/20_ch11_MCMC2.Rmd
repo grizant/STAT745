@@ -1,0 +1,94 @@
+---
+title: "MARKOV CHAIN MONTE CARLO METHODS"
+subtitle: "Chapter 11 SCR2e, Part 2"
+author: "AG Schissler"
+date: "8 Apr 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+bibliography: 'Users/alfred/bib/library.bib'
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 04082021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('20_ch11_MCMC2.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 11 Focus
+
+- Students Practice on Ch. 10 content.
+- Students receive and act on Ch. 8, 9 feedback.
+- Read MCMC Ch. 11.
+- Discuss MCMC Ch. 11.
+
+## Any questions on Ch.10 HW?
+
+- 10.1 - 10.3
+- 10.6
+
+## Today's plan
+
+i. Open with questions on Ch. 11 Problem Set to prime learning.
+ii. Discuss Ch. 11 MCMC part 2
+iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# Ch. 11 MCMC
+
+- 11.1 Introduction: MCMC / Bayes inference
+- 11.2 The Metropolis-Hastings Algorithm
+- 11.3 The Gibbs Sampler
+- 11.4 Monitoring Convergence
+~~- 11.5 Change Point analysis~~
+
+# I. Ch.11 HW
+
+- 11.1, 11.2 M-H practice and understanding.
+- 11.5 MCMC in Bayesian inference.
+- 11.10 Gibbs with full conditionals available.
+- 11.12 Convergence diagnostics
+~~- 11.15 Change Point and HPDI.~~
+
+# Let's watch/discussas as MCMC samplers work
+
+https://chi-feng.github.io/mcmc-demo/
+
+# 11.3 The Gibbs Sampler
+
+## Algorithm
+
+etext
+
+## Example 11.10
+
+etext
+
+# 11.4 Monitoring Convergence
+
+## 11.4.1 Why monitor convergence
+
+## 11.4.2 Methods for monitoring
+
+## 11.4.3 The Gelman-Rubin Method
+
+### Example 11.1
+
+etext
+
+## State-of-the-art MCMC
+
+- Particle simulators including Hamiltonian Monte Carlo (HMC). 
+- HMC has great diagnostics for monitoring convergence based on physical properties.
+
+# Closing / Ch. 11 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.
