@@ -145,6 +145,8 @@ points(D0, 0, cex = 1, pch = 16)      #observed D
 attach(chickwts)
 x <- sort(weight[feed == "sunflower"])
 y <- sort(weight[feed == "linseed"])
+(n <- length(x)); (m <- length(y))
+z <- c(x, y)         #pooled sample
 detach(chickwts)
 summary(cbind(x, y))
 ```
@@ -154,10 +156,13 @@ summary(cbind(x, y))
 ```{r, 103b}
 options(warn = -1)
 D0 <- ks.test(x, y, exact = FALSE)$statistic
+K = 1:(n+m); R = 999; D <- numeric(R)
 for (i in 1:R) {
-    k <- sample(K, size = 14, replace = FALSE)
+    ## k <- sample(K, size = 14, replace = FALSE)
+    k <- sample(K, size = n, replace = FALSE)
     x1 <- z[k]
-    y1 <- z[-k]      #complement of x1
+    ## complement of x1
+    y1 <- z[-k] #gives incorrect answer when size hardcoded
     D[i] <- ks.test(x1, y1, exact = FALSE)$statistic
 }
 p <- mean(c(D0, D) >= D0)
@@ -170,7 +175,7 @@ p
 ```{r, 103c}
 p <- round(p, 3)
 hist(D, main = "", freq = FALSE, xlab = paste0("D (p = ",p,")"),
-     breaks = "scott")
+     breaks = "scott", xlim = c(0,1))
 points(D0, 0, cex = 1, pch = 16)      #observed D
 ```
 
