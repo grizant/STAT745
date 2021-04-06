@@ -7,7 +7,7 @@ output:
   ioslides_presentation:
     widescreen: true
     smaller: true
-bibliography: 'Users/alfred/bib/library.bib'
+bibliography: '/Users/alfred/bib/library.bib'
 ---
 
 ```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
@@ -56,36 +56,56 @@ iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time 
 - 11.12 Convergence diagnostics
 ~~- 11.15 Change Point and HPDI.~~
 
-# Let's watch/discussas as MCMC samplers work
+# Let's discuss as MCMC samplers work
 
 https://chi-feng.github.io/mcmc-demo/
 
 # 11.3 The Gibbs Sampler
 
-## Algorithm
+- Another form of M-H sampler, useful in cases with the target pdf is multi-dimensional is known as Gibbs sampling.
+- The key feature in Gibbs sampling is use of the (full) conditional distributions of the target (joint) pdf.
+- The univariate conditionals must be *fully* specified and easy to sample from.
 
-etext
+## Gibbs Algorithm
 
-## Example 11.10
+- etext p.320
+- Notice that the acceptance ratio = 1, manipulating $r(x_t, y)$ under this conditional structure.
+- Notice the in-stream updating, one by one.
 
-etext
+## Example 11.10 Gibbs Sampler: Bivariate dist'ns
+
+- etext p.320-321
 
 # 11.4 Monitoring Convergence
 
 ## 11.4.1 Why monitor convergence
 
+- If the proposal pdf satisfies various regularity conditions, the chain will converge to the target density $f(\cdot)$. 
+- But (a) when do we know and (b) how large an $m$ or burn-in.
+- Short answer we don't know.... 
+- Instead, we have diagnostics and visualizations.
+- Multi-chain is useful to diagnostic multi-modal issues. 4 is a good number.
+
 ## 11.4.2 Methods for monitoring
+
+- Already seen *trace plots* and *autocorrelation function* (acf) plots
+- And a quantative measure, *rejection rate*.
+- And many other methods exist and are actively being developed.
 
 ## 11.4.3 The Gelman-Rubin Method
 
-### Example 11.1
-
-etext
+- Have you see an ANOVA before?
+- Discuss p.323-325.
+- Estimated *potential scale reduction* factor $\sqrt{\hat{R}}$ should be less than 1.1.
+- Example 11.11
 
 ## State-of-the-art MCMC
 
 - Particle simulators including Hamiltonian Monte Carlo (HMC). 
+- Watch https://chi-feng.github.io/mcmc-demo/.
 - HMC has great diagnostics for monitoring convergence based on physical properties.
+- See `stan`
+- https://mc-stan.org/users/documentation/case-studies/rstan_workflow.html
 
 # Closing / Ch. 11 Problem set
 
