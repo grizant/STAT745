@@ -34,9 +34,11 @@ library(printr)
 
 ## Today's plan
 
-i. Open with questions on Ch. 11 Problem Set to prime learning.
-ii. Discuss Ch. 11 MCMC part 2
-iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time remaining
+i. Open with a discussion of Exercise 10.2-10.3, @Anderson1962.
+ii. Then discuss Ch. 11 Problem Set, the difference shouldn't be that obvious for 11.1.
+iii. Finish discussion Ch. 11 MCMC part 1 (pick up at Bayesian derivation)
+iv. Discussion Ch. 11 MCMC part 2 
+iv. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time remaining
 
 *Please contribute questions and comments*
 
@@ -46,7 +48,7 @@ iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time 
 - 11.2 The Metropolis-Hastings Algorithm
 - 11.3 The Gibbs Sampler
 - 11.4 Monitoring Convergence
-~~- 11.5 Change Point analysis~~
+- ~~11.5 Change Point analysis~~
 
 # I. Ch.11 HW
 
@@ -54,11 +56,7 @@ iii. Summarize, conclude, revisit Ch. 11 Problem prompt discussion / hints time 
 - 11.5 MCMC in Bayesian inference.
 - 11.10 Gibbs with full conditionals available.
 - 11.12 Convergence diagnostics
-~~- 11.15 Change Point and HPDI.~~
-
-# Let's discuss as MCMC samplers work
-
-https://chi-feng.github.io/mcmc-demo/
+- ~~11.15 Change Point and HPDI.~~
 
 # 11.3 The Gibbs Sampler
 
@@ -74,9 +72,56 @@ https://chi-feng.github.io/mcmc-demo/
 
 ## Example 11.10 Gibbs Sampler: Bivariate dist'ns
 
-- etext p.320-321
+```{r 1110}
+#initialize constants and parameters
+N <- 5000               #length of chain
+burn <- 1000            #burn-in length
+X <- matrix(0, N, 2)    #the chain, a bivariate sample
+rho <- -.75; mu1 <- 0; mu2 <- 2
+sigma1 <- 1; sigma2 <- .5
+s1 <- sqrt(1-rho^2)*sigma1; s2 <- sqrt(1-rho^2)*sigma2
+```
+
+## Example 11.10 Gibbs Sampler: Bivariate dist'ns
+
+```{r 1110b}
+X[1, ] <- c(mu1, mu2)            #initialize
+for (i in 2:N) {
+    x2 <- X[i-1, 2]
+    m1 <- mu1 + rho * (x2 - mu2) * sigma1/sigma2
+    X[i, 1] <- rnorm(1, m1, s1)
+    x1 <- X[i, 1]
+    m2 <- mu2 + rho * (x1 - mu1) * sigma2/sigma1
+    X[i, 2] <- rnorm(1, m2, s2)
+}
+b <- burn + 1
+x <- X[b:N, ]
+```
+
+## Example 11.10 Gibbs Sampler: Bivariate dist'ns
+
+```{r 1110c, warning=F}
+# compare sample statistics to parameters
+colMeans(x)
+cov(x)
+cor(x)
+```
+
+## Example 11.10 Gibbs Sampler: Bivariate dist'ns
+
+```{r 1110d}
+plot(x, main="", cex=.5, xlab=bquote(X[1]),
+         ylab=bquote(X[2]), ylim=range(x[,2]))
+```
+
+## Let's watch a Gibbs sampler at work
+
+https://chi-feng.github.io/mcmc-demo/
 
 # 11.4 Monitoring Convergence
+
+- Uses multiple chains to monitor convergence to the stationary distribution.
+- An Analysis of Variance (ANOVA) type analysis of between-chain to within-chain variation.
 
 ## 11.4.1 Why monitor convergence
 
@@ -97,14 +142,75 @@ https://chi-feng.github.io/mcmc-demo/
 - Have you see an ANOVA before?
 - Discuss p.323-325.
 - Estimated *potential scale reduction* factor $\sqrt{\hat{R}}$ should be less than 1.1.
-- Example 11.11
+
+## Example 11.11 (Gelman-rubin method) `coda`
+
+```{r 1111}
+normal.chain <- function(sigma, N, X1) {
+    ##generates a Metropolis chain for Normal(0,1)
+    ##with Normal(X[t], sigma) proposal distribution
+    ##and starting value X1
+    x <- rep(0, N)
+    x[1] <- X1
+    u <- runif(N)
+    for (i in 2:N) {
+        xt <- x[i-1]
+        y <- rnorm(1, xt, sigma)     #candidate point
+        r1 <- dnorm(y, 0, 1) * dnorm(xt, y, sigma)
+        r2 <- dnorm(xt, 0, 1) * dnorm(y, xt, sigma)
+        r <- r1 / r2
+        if (u[i] <= r) x[i] <- y else x[i] <- xt
+    }
+    return(x)
+}
+```
+
+## Example 11.11 (Gelman-rubin method) `coda`
+
+```{r 1111b}
+sigma <- .2     #parameter of proposal distribution
+k <- 4          #number of chains to generate
+n <- 15000      #length of chains
+b <- 1000       #burn-in length
+##choose overdispersed initial values
+x0 <- c(-10, -5, 5, 10)
+```
+
+## Example 11.11 (Gelman-rubin method) `coda`
+
+```{r 1111c}
+#generate the chains
+X <- matrix(0, nrow=k, ncol=n)
+for (i in 1:k)
+    X[i, ] <- normal.chain(sigma, n, x0[i])
+```
+
+## Example 11.11 (Gelman-rubin method) `coda`
+
+```{r 1111d}
+library(coda)
+X1 <- as.mcmc(X[1, ])
+X2 <- as.mcmc(X[2, ])
+X3 <- as.mcmc(X[3, ])
+X4 <- as.mcmc(X[4, ])
+Y <- mcmc.list(X1, X2, X3, X4)
+print(gelman.diag(Y))
+```
+
+## Example 11.11 (Gelman-rubin method) `coda`
+
+```{r 1111e}
+gelman.plot(Y, col = c(1, 1))
+```
+
+
 
 ## State-of-the-art MCMC
 
 - Particle simulators including Hamiltonian Monte Carlo (HMC). 
 - Watch https://chi-feng.github.io/mcmc-demo/.
 - HMC has great diagnostics for monitoring convergence based on physical properties.
-- See `stan`
+- Let's tour the  [`stan`](https://mc-stan.org/) website and [forums](https://discourse.mc-stan.org/).
 - https://mc-stan.org/users/documentation/case-studies/rstan_workflow.html
 
 # Closing / Ch. 11 Problem set
@@ -112,3 +218,5 @@ https://chi-feng.github.io/mcmc-demo/
 - Revisit HW.
 - Questions?
 - Students please summarize/ask questions about what we discussed today.
+
+## References

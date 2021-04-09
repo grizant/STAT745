@@ -90,7 +90,7 @@ points(D0, 0, cex = 1, pch = 16)      #observed D
 - 11.2 The Metropolis-Hastings Algorithm
 - 11.3 The Gibbs Sampler
 - 11.4 Monitoring Convergence
-~~- 11.5 Change Point analysis~~
+- ~~11.5 Change Point analysis~~
 
 # I. Ch.11 HW
 
@@ -98,7 +98,7 @@ points(D0, 0, cex = 1, pch = 16)      #observed D
 - 11.5 MCMC in Bayesian inference.
 - 11.10 Gibbs with full conditionals available.
 - 11.12 Convergence diagnostics
-~~- 11.15 Change Point and HPDI.~~
+- ~~11.15 Change Point and HPDI.~~
 
 # 11.1 Introduction: MCMC 
 
@@ -329,7 +329,7 @@ Derivation on iPad
 
 ## Other MCMC packages
 
-- `coda`
+- `coda` (used in Exercise 11.12)
 - `MCMCpack`
 - `mcmc`
 - `ggmcmc`
