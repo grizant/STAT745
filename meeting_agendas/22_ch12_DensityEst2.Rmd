@@ -1,0 +1,114 @@
+---
+title: "PROBABILITY DENSITY ESTIMATION"
+subtitle: "Chapter 12 SCR2e, Part 2"
+author: "AG Schissler"
+date: "15 Apr 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 04152021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('22_ch12_DensityEst2.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 12 Focus
+
+- Students Practice on Ch. 11 content.
+- Students receive and act on Ch. 10 feedback.
+- Read Prob Den. Est. Ch. 12.
+- Discuss Prob Den. Est.  Ch. 12.
+
+## Any questions on Ch.11 HW?
+
+- 11.1, 11.2 M-H practice and understanding.
+- 11.5 MCMC in Bayesian inference.
+- 11.10 Gibbs with full conditionals available.
+- 11.12 Convergence diagnostics
+- ~~11.15 Change Point and HPDI.~~
+
+## Today's plan
+
+i. Open with questions on Ch. 12 Problem Set to prime learning.
+ii. Discuss Ch. 12 Prob Den. Est. part 2
+iii. Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# I. Ch.12 HW
+
+- 12.1 Histogram estimation
+- 12.4 Frequency polygon density
+- 12.6 ASH density for old faithful
+- 12.8 Kernel density for `buffalo` snowfall data.
+- 12.13 Generalize 2D ASH.
+
+# Ch. 12 Probability Density Estimation
+
+## Probability Density Estimation, Part 2
+
+* 12.2 Kernel Density Estimation
+  * Example 12.7 - 12.9
+  * Boundary kernels, Examples 12.10-12.11
+* 12.3 Bivariate/Multivariate Den. Est.
+  * 12.3.1 Bivariate Frequency Polygon
+	* Example 12.12 - 12.13
+  * 3D Histogram
+  * 12.3.2 Bivariate ASH
+	* Example 12.14 / Fig 12.12
+  * 12.3.3 Multidimensional Kernel Methods
+	* Example 12.15 / Fig 12.13
+* 12.4 Other methods in Den. Est.
+
+# 12.2 Kernel Density Estimation
+
+## Kernel Density Estimation overview
+
+* Equation (12.12)
+* Figure 12.6
+* Table 12.2
+
+## Example 12.7 / Fig 12.8
+
+## Example 12.8 / Fig 12.9
+
+## Example 12.9
+
+## Boundary kernels
+	
+## Example 12.10 / Fig 12.10
+
+## Example 12.11
+
+# 12.3 Bivariate/Multivariate Den. Est.
+
+## 12.3.1 Bivariate Frequency Polygon
+	
+## Example 12.12
+
+## Example 12.13 / Fig 12.11
+
+## 3D Histogram
+
+## 12.3.2 Bivariate ASH
+
+## Example 12.14 / Fig 12.12
+
+## 12.3.3 Multidimensional Kernel Methods
+
+## Example 12.15 / Fig 12.13
+
+# 12.4 Other methods in Den. Est.
+
+# Closing / Ch. 12 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.
