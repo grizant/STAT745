@@ -1,0 +1,114 @@
+---
+title: "INTRO TO NUMERICAL METHODS IN R"
+subtitle: "Chapter 13 SCR2e"
+author: "AG Schissler"
+date: "20 Apr 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 04202021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('23_ch13_NumericMethods.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 13 Focus
+
+- Students Practice on Ch.12 content.
+- Students receive and act on Ch. 11 feedback.
+- Read Numerical Methods in R Ch. 13
+- Read Optimization Ch. 14
+- Discuss Ch. 13, 14
+
+## Any questions on Ch.12 HW?
+
+- 12.1 Histogram estimation
+- 12.4 Frequency polygon density
+- 12.6 ASH density for old faithful
+- 12.8 Kernel density for `buffalo` snowfall data.
+- 12.13 Generalize 2D ASH (BONUS NOW)
+
+## Today's plan
+
+i. Open with questions on Ch.13 Problem Set to prime learning.
+ii. Discuss Ch.13 Numerical Methods in R
+iii. Summarize, conclude, revisit Ch. 13 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# Ch. 13 Numercial Methods in R
+
+- 13.1 Introduction
+- 13.2 Root-finding in One Dimension
+- 13.3 Numerical Integration
+- 13.4 Maximum Likelihood Problems
+- 13.5 Application: Evaluating an Expected Value
+
+# I. Ch.13 HW Preview
+
+## Ch.13 HW Preview/Hints
+
+- 13.3 Efficient implementation a high dimension, computationally intense procedure.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
+- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
+
+# 13.1 Introduction
+
+## 13.1 Introduction
+
+- Overview
+- Computer representation of real numbers
+- R Note 13.2 is important.
+- Example 13.1 Identical and nearly equal
+- Example 13.2 Ratio of two large numbers
+- Evaluating Functions
+- Example 13.3 Taylor expansion
+- Example 13.4 Derviative of zeta function
+- Example 13.5 Derviative of zeta function (con'd)
+
+# 13.2 Root-finding in One Dimension
+
+## 13.2 Root-finding in One Dimension
+
+- Bisection method
+- Example 13.6 Solving $f(x)=0$
+- Brent's method
+- Example 13.6 Solving $f(x)=0$ with Brent's method: `uniroot`.
+
+# 13.3 Numerical Integration
+
+## 13.3 Numerical Integration
+
+- Gaussian Quadrature Thm (classical stuff that works well for low-dim).
+- Example 13.8 Numerical Integration with `integrate`
+- R Note 13.4 is helpful. Named arguments to R function is safer and communicates better.
+- Example 13.9 Density of sample correlation coefficient
+
+# 13.4 Maximum Likelihood Problems
+
+## 13.4 Maximum Likelihood Problems
+
+- Notation and importance in statistics
+- Example 13.10 MLE using `mle`
+
+# 13.5 Application: Evaluating an Expected Value
+
+## 13.5 Application: Evaluating an Expected Value
+
+- Pareto type I distribution
+- Example 13.11 Numerical integration
+- Example 13.13 Direct evaluation
+- Example 13.14 Plot of expected distance function
+
+# Closing / Ch.13 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.
