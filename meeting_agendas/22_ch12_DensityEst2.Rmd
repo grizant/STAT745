@@ -26,29 +26,37 @@ library(printr)
 - Read Prob Den. Est. Ch. 12.
 - Discuss Prob Den. Est.  Ch. 12.
 
+## Today's plan
+
+i. Discuss Ch.10 HW feedback
+ii. Discuss Ch.11 HW 
+iii. Prime learning by previewing Ch.12 HW.
+iv. Discuss Ch. 12 Prob Den. Est. part 1 (meeting 21)
+v. Discuss Ch. 12 Prob Den. Est. part 2
+vi. Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+## Ch.10 HW feedback
+
+- ???
+
 ## Any questions on Ch.11 HW?
 
 - 11.1, 11.2 M-H practice and understanding.
 - 11.5 MCMC in Bayesian inference.
-- 11.10 Gibbs with full conditionals available.
+- 11.10 Gibbs with full conditionals available. (Please use $a=2,b=3,n=10$ for standardization answers).
 - 11.12 Convergence diagnostics
 - ~~11.15 Change Point and HPDI.~~
 
-## Today's plan
-
-i. Open with questions on Ch. 12 Problem Set to prime learning.
-ii. Discuss Ch. 12 Prob Den. Est. part 2
-iii. Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time remaining
-
-*Please contribute questions and comments*
-
 # I. Ch.12 HW
 
-- 12.1 Histogram estimation
-- 12.4 Frequency polygon density
-- 12.6 ASH density for old faithful
-- 12.8 Kernel density for `buffalo` snowfall data.
-- 12.13 Generalize 2D ASH.
+- 12.1 Histogram estimation (hint try `histObject$density`).
+- 12.4 Frequency polygon density (try `approxfun()` to check your work with `integrate`)
+- 12.6 ASH density for old faithful (hint: estimate (12.9), see Example 12.6).
+- 12.8 Kernel density for `buffalo` snowfall data (just use `density` apprpopriately. See Table 12.2 for insight into whether binwidth or choice of kernel is more important).
+- 12.13 Generalize 2D ASH. (now BONUS; this is a theoretical question to first develop the approach and then it would be good to apply to simulated/real data).
+- May find `nclass.Sturges` helpful or binning rules from `nclass.XXX`.
 
 # Ch. 12 Probability Density Estimation
 
@@ -71,21 +79,43 @@ iii. Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time 
 
 ## Kernel Density Estimation overview
 
-* Equation (12.12)
-* Figure 12.6
-* Table 12.2
+- Generalizes idea of histogram-based density estimation
+- Recall (12.1): $\hat{f}(x) = \frac{\nu_k}{nh}$, for $x$ in class with boundaries $t_k \leq x < t_{k+1}$.
+- Centering the class interval on midpoint $x$ with binwidth $2h$ gives $\hat{f}(x) = \frac{k}{2hn}$, $x \in (x-h, x+h)$, where $k$ in the number of sample points in the interval.
+- This can be written more generally as (12.11): $\hat{f}(x) = \frac{1}{n} \sum_{i=1}^n \frac{1}{h} w \left( \frac{x - X_i}{h} \right)$.
+- $w(\cdot)$ is called the $weight function$.
+- Equation (12.1) is called the *naive density estimator* and has weight function $w(t)=\frac{1}{2} I(|t|<1)$.
+- This is a probability distribution on $[-1,1]$! (it is Uniform(-1,1) / rectangular shape / symmetric).
+- *Kernel density estimation* replaces $w()$ with a kernel function $K(\cdot)$ is a density, usually symmetric.
+- Triangular kernel (ASH converges to this). Or Gaussian kernel.
+
+## Kernel Density Estimation overview
+
+- Properties of the kernel propagate to the estimator.
+- If $K()$ is continuous/smooth $\hat{f}()$ will be also.
+- Smaller binwidth $h$ will be more responsive to data points (local features).
+- Larger binwidth $h$ will reveal global (regular) features. (see Figure 12.6)
+- See Figure 12.7 and Table 12.2.
+- Silverman's rule is a good default choice. See `bw.nrd`.
 
 ## Example 12.7 / Fig 12.8
 
+- etext
+
 ## Example 12.8 / Fig 12.9
+
+- etext
 
 ## Example 12.9
 
-## Boundary kernels
-	
-## Example 12.10 / Fig 12.10
+- etext
 
-## Example 12.11
+## Boundary kernels
+
+- Reflection boundary technique (draw on ipad if needed)
+- Example 12.10 
+- Example 12.11
+- Fig 12.10
 
 # 12.3 Bivariate/Multivariate Den. Est.
 
@@ -106,6 +136,8 @@ iii. Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time 
 ## Example 12.15 / Fig 12.13
 
 # 12.4 Other methods in Den. Est.
+
+- Kullback-Liebler divergence/distance is powerful, information theoretic based loss function.
 
 # Closing / Ch. 12 Problem set
 

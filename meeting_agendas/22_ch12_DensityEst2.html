@@ -3128,7 +3128,7 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">15 Apr 2021 (<em>updated: 2021-04-09)</em></p>
+            <p style="margin-top: 6px; margin-left: -2px;">15 Apr 2021 (<em>updated: 2021-04-15)</em></p>
           </hgroup>
   </slide>
 
@@ -3143,34 +3143,44 @@ slide:not(.current) .plotly.html-widget{
 <li>Discuss Prob Den. Est. Ch. 12.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Any questions on Ch.11 HW?</h2></hgroup><article  id="any-questions-on-ch.11-hw" class="smaller ">
-
-<ul>
-<li>11.1, 11.2 M-H practice and understanding.</li>
-<li>11.5 MCMC in Bayesian inference.</li>
-<li>11.10 Gibbs with full conditionals available.</li>
-<li>11.12 Convergence diagnostics</li>
-<li><del>11.15 Change Point and HPDI.</del></li>
-</ul>
-
 </article></slide><slide class=""><hgroup><h2>Today’s plan</h2></hgroup><article  id="todays-plan" class="smaller ">
 
 <ol>
-<li>Open with questions on Ch. 12 Problem Set to prime learning.</li>
+<li>Discuss Ch.10 HW feedback</li>
+<li>Discuss Ch.11 HW</li>
+<li>Prime learning by previewing Ch.12 HW.</li>
+<li>Discuss Ch. 12 Prob Den. Est. part 1 (meeting 21)</li>
 <li>Discuss Ch. 12 Prob Den. Est. part 2</li>
 <li>Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time remaining</li>
 </ol>
 
 <p><em>Please contribute questions and comments</em></p>
 
+</article></slide><slide class=""><hgroup><h2>Ch.10 HW feedback</h2></hgroup><article  id="ch.10-hw-feedback" class="smaller ">
+
+<ul>
+<li>???</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Any questions on Ch.11 HW?</h2></hgroup><article  id="any-questions-on-ch.11-hw" class="smaller ">
+
+<ul>
+<li>11.1, 11.2 M-H practice and understanding.</li>
+<li>11.5 MCMC in Bayesian inference.</li>
+<li>11.10 Gibbs with full conditionals available. (Please use \(a=2,b=3,n=10\) for standardization answers).</li>
+<li>11.12 Convergence diagnostics</li>
+<li><del>11.15 Change Point and HPDI.</del></li>
+</ul>
+
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>I. Ch.12 HW</h2></hgroup><article  id="i.-ch.12-hw" class="smaller ">
 
 <ul>
-<li>12.1 Histogram estimation</li>
-<li>12.4 Frequency polygon density</li>
-<li>12.6 ASH density for old faithful</li>
-<li>12.8 Kernel density for <code>buffalo</code> snowfall data.</li>
-<li>12.13 Generalize 2D ASH.</li>
+<li>12.1 Histogram estimation (hint try <code>histObject$density</code>).</li>
+<li>12.4 Frequency polygon density (try <code>approxfun()</code> to check your work with <code>integrate</code>)</li>
+<li>12.6 ASH density for old faithful (hint: estimate (12.9), see Example 12.6).</li>
+<li>12.8 Kernel density for <code>buffalo</code> snowfall data (just use <code>density</code> apprpopriately. See Table 12.2 for insight into whether binwidth or choice of kernel is more important).</li>
+<li>12.13 Generalize 2D ASH. (now BONUS; this is a theoretical question to first develop the approach and then it would be good to apply to simulated/real data).</li>
+<li>May find <code>nclass.Sturges</code> helpful or binning rules from <code>nclass.XXX</code>.</li>
 </ul>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ch. 12 Probability Density Estimation</h2></hgroup><article  id="ch.-12-probability-density-estimation" class="smaller ">
@@ -3212,22 +3222,54 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>Kernel Density Estimation overview</h2></hgroup><article  id="kernel-density-estimation-overview" class="smaller ">
 
 <ul>
-<li>Equation (12.12)</li>
-<li>Figure 12.6</li>
-<li>Table 12.2</li>
+<li>Generalizes idea of histogram-based density estimation</li>
+<li>Recall (12.1): \(\hat{f}(x) = \frac{\nu_k}{nh}\), for \(x\) in class with boundaries \(t_k \leq x &lt; t_{k+1}\).</li>
+<li>Centering the class interval on midpoint \(x\) with binwidth \(2h\) gives \(\hat{f}(x) = \frac{k}{2hn}\), \(x \in (x-h, x+h)\), where \(k\) in the number of sample points in the interval.</li>
+<li>This can be written more generally as (12.11): \(\hat{f}(x) = \frac{1}{n} \sum_{i=1}^n \frac{1}{h} w \left( \frac{x - X_i}{h} \right)\).</li>
+<li>\(w(\cdot)\) is called the \(weight function\).</li>
+<li>Equation (12.1) is called the <em>naive density estimator</em> and has weight function \(w(t)=\frac{1}{2} I(|t|&lt;1)\).</li>
+<li>This is a probability distribution on \([-1,1]\)! (it is Uniform(-1,1) / rectangular shape / symmetric).</li>
+<li><em>Kernel density estimation</em> replaces \(w()\) with a kernel function \(K(\cdot)\) is a density, usually symmetric.</li>
+<li>Triangular kernel (ASH converges to this). Or Gaussian kernel.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Kernel Density Estimation overview</h2></hgroup><article  id="kernel-density-estimation-overview-1" class="smaller ">
+
+<ul>
+<li>Properties of the kernel propagate to the estimator.</li>
+<li>If \(K()\) is continuous/smooth \(\hat{f}()\) will be also.</li>
+<li>Smaller binwidth \(h\) will be more responsive to data points (local features).</li>
+<li>Larger binwidth \(h\) will reveal global (regular) features. (see Figure 12.6)</li>
+<li>See Figure 12.7 and Table 12.2.</li>
+<li>Silverman’s rule is a good default choice. See <code>bw.nrd</code>.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Example 12.7 / Fig 12.8</h2></hgroup><article  id="example-12.7-fig-12.8" class="smaller ">
 
+<ul>
+<li>etext</li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Example 12.8 / Fig 12.9</h2></hgroup><article  id="example-12.8-fig-12.9" class="smaller ">
+
+<ul>
+<li>etext</li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Example 12.9</h2></hgroup><article  id="example-12.9" class="smaller ">
 
+<ul>
+<li>etext</li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Boundary kernels</h2></hgroup><article  id="boundary-kernels" class="smaller ">
 
-</article></slide><slide class=""><hgroup><h2>Example 12.10 / Fig 12.10</h2></hgroup><article  id="example-12.10-fig-12.10" class="smaller ">
-
-</article></slide><slide class=""><hgroup><h2>Example 12.11</h2></hgroup><article  id="example-12.11" class="smaller ">
+<ul>
+<li>Reflection boundary technique (draw on ipad if needed)</li>
+<li>Example 12.10</li>
+<li>Example 12.11</li>
+<li>Fig 12.10</li>
+</ul>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>12.3 Bivariate/Multivariate Den. Est.</h2></hgroup><article  id="bivariatemultivariate-den.-est." class="smaller ">
 
@@ -3248,6 +3290,10 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>Example 12.15 / Fig 12.13</h2></hgroup><article  id="example-12.15-fig-12.13" class="smaller ">
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>12.4 Other methods in Den. Est.</h2></hgroup><article  id="other-methods-in-den.-est." class="smaller ">
+
+<ul>
+<li>Kullback-Liebler divergence/distance is powerful, information theoretic based loss function.</li>
+</ul>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Closing / Ch. 12 Problem set</h2></hgroup><article  id="closing-ch.-12-problem-set" class="smaller ">
 

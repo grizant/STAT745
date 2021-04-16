@@ -22,26 +22,31 @@ library(printr)
 # i. Week 12 Focus
 
 - Students Practice on Ch. 11 content.
-- Students receive and act on Ch. 10 feedback.
+- Students receive and act on Ch.7 feedback.
 - Read Prob Den. Est. Ch. 12.
 - Discuss Prob Den. Est.  Ch. 12.
+
+## HW discussion
+
+- 7.D. vary d,n to see strange pattern.
+- 8.7 Use B >= 2000. Interpret a little more. What do these numbers mean? Is the bootstrap unbiased?
+- 9.6 How to interpret jackknife plots?
 
 ## Any questions on Ch.11 HW?
 
 - 11.1, 11.2 M-H practice and understanding.
-- 11.5 MCMC in Bayesian inference.
+- 11.5 MCMC in Bayesian inference (repeat the analysis on 2nd data set with uniform prior).
 - 11.10 Gibbs with full conditionals available.
 - 11.12 Convergence diagnostics
 - ~~11.15 Change Point and HPDI.~~
 
 ## Today's plan
 
-1. Finish Ch.11 MCMC discussion
+1. Finish Ch.11 MCMC discussion in `20_ch11_MCMC2.Rmd`
    * Bayesian posterior M-H derivation
    * Gibbs sampler explained
-   * Gibbs sampler acceptance rate = 1.
    * `coda`
-   * Modern MCMC / 
+   * Modern MCMC / HMC
 2. Discuss on Ch. 12 Problem Set to prime learning.
 3. Discuss Ch. 12 Prob Den. Est. part 1
 4. Summarize, conclude, revisit Ch. 12 Problem prompt discussion / hints time remaining
@@ -77,34 +82,131 @@ library(printr)
 
 # Overview
 
-- Motivation
-- Big ideas
+- Nonparametric density estimation
+- Histogram is a basic example
+- Figure out what `density()` does --- *kernel density estimation*.
+- 1D and multivariate estimation
 
 # 12.1 Univariate Density Estimation
 
+- Histograms and automatic binning rules
+- Average Shifted Histograms (ASH)
+
 ## 12.1.1 Histograms
-	
+
+- Various strategies to determine bins, boundaries
+- Explore `bw.XXX` functions. Use tab completion in Rstudio.
+- Even unequal bin widths can be used (not discussed).
+- Often the default `hist` command gives a poor estimate of the density
+- Beware of oversmoothing/fitting (missing obvious features)
+- And undersmoothing (too wiggly)
+- Eqn (12.1): given class intervals of equal width $h$, the histogram density estimate based on a sample size $n$ is
+$\hat{f}(x) = \frac{ \nu_k }{nh}, \: t_k \leq x < t_{k+1}$
+- $\mathrm{Bias}\left(\hat{f}(x)\right) \propto h$, bias determined using derivatives.
+
 ## Sturge's Rule
-	
+
+- Tends to oversmooth.
+- Default in many packages. `hist` uses a modified Sturge's rule with "nice" values.
+- Scott's rule or Freedman-Diaconis (FD) generally preferred.
+- Sturge's rule assumes implicitly a normal population.
+- With this in mind, since our sample is actually discrete, use Binomial(n, p=1/2).
+- For large $n$, width $h$ is given by $\frac{R}{1+log_2 n}$, where $R$ is sample range and there are $1+log_2 n$ classes.
+- Good for unimodal, symmetric. 
+- Oversmooths for large $n$, :(.
+
 ## Example 12.1
-	
+
+- Notice the similarities between default and Sturge's rule in `hist()`
+- Small sample gives issues.
+
 ## Example 12.2
+
+- The `hist` return object is interesting.
+- Can extract the counts/proportions in a bin, once you locate the bin.
+- Could save time at some point in your career to know this.
+
+## Doane's skewness modification to Sturge's
+
+See (12.2) and the introduction of the skewness coefficient to adjust.
 
 ## Scott's Normal Reference Rule 
 
+- First develop a scoring rule.
+- MSE of $\hat{f}(x)$ is a good enough place to start.
+- Consider *mean integrated squared error* (MISE). 
+- Under some basic regularity requirements, we can switch the order of integration to get MISE = IMSE.
+- This leads to binwidth given in Eqn (12.3) and (12.4).
+- Depends on the first derivation which is unknown.
+- Using a normal assumption leads to the *normal reference rule* (12.5). 
+- Width decreases at rate $n^{-1/3}$.
+- `bw.nrd`, `MASS::truehist`
+
 ## Example 12.3
 	
+- Compare Scott rule and use of `pretty`.
+
 ## Freedman-Diaconis Rule
+
+- Another rule in the same class with binwidth decreasing at rate $n^{-1/3}$.
+- Intead of $\hat{\sigma}$, FD uses IQR.
+- More robust to outliers.
  
 ## 12.1.2 Frequency Polygon Density Estimate
 
+- Seeks continuous extension of histogram
+- Linearly interpolates the midpoints
+- Scott derives optimal frequency by asymptotically minimizing IMSE (12.6).
+- Depends on second-order derivative (estimated using difference equations).
+- (12.7) is for normal population
+- (12.8) adjusts for skewness.
+
 ## Example 12.4
 
-## 12.1.3 The Averaged Shifted Histogram
+```{r, echo=F, message=F, warning=F}
+library(MASS)  #for geyser and truehist
+waiting <- geyser$waiting   #in MASS
+n <- length(waiting)
+## freq poly bin width using normal ref rule
+h <- 2.15 * sqrt(var(waiting)) * n^(-1/5)
 
-## Example 12.5
+# calculate the sequence of breaks and histogram
+br <- pretty(waiting, diff(range(waiting)) / h)
+brplus <- c(min(br)-h, max(br+h))
+histg <- hist(waiting, breaks = br, freq = FALSE, main = "", xlim = brplus, plot=F)
 
-## Example 12.6
+    vx <- histg$mids     #density est at vertices of polygon
+    vy <- histg$density
+    delta <- diff(vx)[1] # h after pretty is applied
+    k <- length(vx)
+    vx <- vx + delta     # the bins on the ends
+    vx <- c(vx[1] - 2 * delta, vx[1] - delta, vx)
+    vy <- c(0, vy, 0)
+
+    # add the polygon to the histogram
+    ## polygon(vx, vy)
+
+    # check estimates by numerical integration
+    fpoly <- approxfun(vx, vy)
+    ## print(integrate(fpoly, lower=min(vx), upper=max(vx)))
+    
+    library(ggplot2)
+    ggplot(geyser, aes(waiting)) + geom_histogram() + geom_freqpoly(binsize=h) 
+```
+
+## 12.1.3 The Averaged Shifted Histogram (ASH)
+
+- Binwidth is not the only consideration
+- With a fixed binwidth, moving the class boundaries gives different estimators. (See Fig. 12.4).
+- Scott proposes ASH to average density estimators while progressively shifted by $h/m$.
+- Normal assumption gives (12.9).
+
+## Example 12.5, 12.6
+
+- Calculations for ASH.
+- Average the estimates from each histogram for each value.
+- Clever formula (12.10), note that you must have $m-1$ empty bins on the left and right.
+- Follow Example 12.6 to complete Exercise 12.6 ASH density for old faithful.
 
 # Closing / Ch. 12 Problem set
 
