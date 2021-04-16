@@ -1,0 +1,101 @@
+---
+title: "OPTIMIZATION"
+subtitle: "Chapter 14 SCR2e"
+author: "AG Schissler"
+date: "22 Apr 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 04222021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('24_ch14_Optimization.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 13 Focus
+
+- Students Practice on Ch.12 content.
+- Students receive and act on Ch. 11 feedback.
+- Read Numerical Methods in R Ch. 13
+- Read Optimization Ch. 14
+- Discuss Ch. 13, 14
+
+## Any questions on Ch.12 HW?
+
+- 12.1 Histogram estimation
+- 12.4 Frequency polygon density
+- 12.6 ASH density for old faithful
+- 12.8 Kernel density for `buffalo` snowfall data.
+- 12.13 Generalize 2D ASH (BONUS NOW)
+
+## Today's plan
+
+i. Open with questions on Ch.14 Problem Set to prime learning.
+ii. Discuss Ch.14 Numerical Methods in R
+iii. Summarize, conclude, revisit Ch.14 Problem prompt discussion / hints time remaining
+
+*Please contribute questions and comments*
+
+# Ch.14 Optimization
+
+- 14.1 Introduction
+- 14.2 One-dimensional Optimization
+- 14.3 Maximum Likelihood Estimation with `mle`
+- 14.4 Two-dimensional Optimization
+- 14.5 The EM Algorithm
+- 14.6 Linear Programming --- The Simplex Method
+
+# I. Ch.14 HW Preview
+
+## Ch.13,14 HW Preview/Hints
+
+- 13.3 Efficient implementation a high dimension, computationally intense procedure.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
+- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
+- 14.1 Use the *simplex* algorithm to solve a small system of equations. Use `boot::simplex()`.
+
+## 14.1 Introduction
+
+- Goal
+- R functions for optimization: `optimize`, `optim`, `constrOptim`, `nlm`, `mle`.
+- List of methods
+
+## 14.2 One-dimensional Optimization
+
+- Newton algorithms, golden search, interpolations
+- Example 14.1 1D optimization via `opimize`
+
+## 14.3 Maximum Likelihood Estimation with `mle`
+
+- `mle` wraps `optim`
+- Discuss `...` for wrapping functions.
+- Example 14.2 MLE: Gamma distr.
+
+## 14.4 Two-dimensional Optimization
+
+- `optim` methods: Nelder-Mead, Quasi-Newton, Conjugate-gradient algorithms
+- Example 14.3 2D via `optim`
+- Example 14.4 MLE for a quadratic form
+
+## 14.5 The EM Algorithm
+
+- Expectation-Maximization (EM) algorithm importance/use
+- Example 14.5 EM for a mixture model
+
+## 14.6 Linear Programming --- The Simplex Method
+
+- Method for certain types of constrained optimization
+- Example 14.6 Simplex algorithm
+
+# Closing / Ch.13 Problem set
+
+- Revisit HW.
+- Questions?
+- Students please summarize/ask questions about what we discussed today.
