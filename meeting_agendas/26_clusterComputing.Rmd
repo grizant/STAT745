@@ -1,0 +1,297 @@
+---
+title: "PROGRAMMING TOPICS"
+subtitle: "CLUSTER COMPUTING"
+author: "AG Schissler"
+date: "29 Apr 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 04292021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('26_clusterComputing.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 14 Focus
+
+- Students Practice on Ch.13,14 content.
+- Students receive and act on Ch.12 feedback.
+- Read Programming Topics Ch.15.
+- Discuss Ch.15.
+- Discuss statistical computing on remote servers.
+
+## Today's plan
+
+i. Ch.13,14 HW discussion
+ii. Discuss cluster computing on Okapi/Pronghorn
+
+*Please contribute questions and comments*
+
+## i. Any questions on Ch.13,14 HW?
+
+- 13.3 Efficient implementation a high dimension, computationally intense procedure.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
+- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
+- 14.1 Use the *simplex* algorithm to solve a small system of equations. Use `boot::simplex()`.
+
+## Cluster computing
+
+1) Show how to prototype a MC study interactively on Okapi.
+2) Show how to *unit test* by submitting a `slurm` job.  
+2b) Students conduct unit tests (if netID enabled on Okapi).
+3) Provide information to *scale* to embarrasingly large parallel simulations.  
+
+## Student learning outcomes
+
+You'll be able to...  
+
+- Appreciate the "why" you may need to compute on a server.
+- Understand the basics of `slurm` batch scheduling.  
+- Become familiar with available software and workflows for computing on a server.  
+- Log onto Okapi the Server and submit a basic slurm job to obtain MC results.
+
+# Prototyping an MC study on Okapi
+
+- Introduction to MC study
+- Develop/prototype your scripts interactively
+
+## Brief Intro to MC simulation
+
+- Brief motivation / introduction to Monte Carlo Simulation 
+- R gives us unique access to great simulation tools (unique compared to other languages). 
+- Why simulate? Welcome to the 21st century! Two reasons:  
+  1) Often, simulations can be easier than hand calculations 
+  2) Often, simulations can be made more realistic than hand calculations.
+- See M. Davidian's [slides](http://www4.stat.ncsu.edu/~davidian/st810a/simulation_handout.pdf) for more.
+
+## Accessing Okapi the Server via Remote Desktop.  
+
+You can follow Dr. Eric Olson's guidance on the [Okapi the Server homepage](http://fractal.math.unr.edu/~okapi/) to open a `ssh` portal to enable a virtual desktop from off-campus.
+
+On Mac/linux open a terminal and execute:
+
+```{bash, echo=T, eval=F}
+ssh -L 33389:localhost:3389 -l <NETID> okapi.math.unr.edu
+```
+
+replacing `<NETID>` with your user name. Then open up a MS Remote Desktop instance. Let's do that now.
+
+## Monte Carlo estimation example
+
+From @Rizzo2019 (Example 7.1): 
+
+Suppose that $X_1, X_2$ are iid from a standard normal distribution. To estimate the mean difference $E|X_1 - X_2|$ we will obtain a Monte Carlo estimate of $\theta = E|X_1 - X_2|$ based on $m=1000$ replicates of random samples $x^{(j)} = (x_1^{(j)}, x_2^{(j)}), j=1,\ldots,m$ of size 2 from $N(0,1)$. Then compute the replicates $\hat{\theta}^{(j)} = \frac{1}{m}\sum |x_1^{(j)} - x_2^{(j)}|$
+
+## Monte Carlo estimation example
+
+```{r, purl = F}
+set.seed(44)
+m <- 1000
+g <- numeric(m)
+for (i in 1:m) {
+    x <- rnorm(2)
+    g[i] <- abs(x[1] - x[2])
+}
+est <- mean(g)
+est
+```
+
+The exact theoretic answer by integration is $E|X_1-X_2|=2/\sqrt{\pi} \dot{=} 1.128379$.
+
+## Preparing the algorithm script for cluster
+
+```{r, eval = F}
+args = commandArgs(trailingOnly = TRUE) ## Expect command line args at the end. 
+tmpM = as.numeric(args[1])
+tmpSeed = as.numeric(args[2])
+estimateTheta <- function( m = 1000, seed = NULL ) {
+    if (!is.null( seed )) { set.seed( seed ) }
+    est <- mean ( replicate( n = m, expr = {
+        x <- rnorm(2)
+        abs(x[1] - x[2])
+    } ) )
+    return( est )
+}
+(est <- estimateTheta( m = tmpM, seed = tmpSeed )) # print and store
+jobID <- paste( tmpM, tmpSeed, sep="_" )
+saveRDS( data.frame( m = tmpM, seed = tmpSeed, est = est),
+        paste0( "thetaHat_", jobID, ".rds") ) 
+```
+
+## Preparing the algorithm script for cluster
+
+For more on this topic see this nice blog post:
+
+[https://thecoatlessprofessor.com/programming/r/working-with-r-on-a-cluster/](https://thecoatlessprofessor.com/programming/r/working-with-r-on-a-cluster/).
+
+## Running `R` noninteractively, passing arguments
+
+```{bash, eval = F}
+ Rscript ./estimateTheta.R 100 44 > estimateTheta.Rout
+```
+
+## File management on Okapi
+
+- Lets create a script in R Studio and save for submitting to the scheduler.
+
+# *Unit test* by submitting a `slurm` job.
+
+## Creating a `.slm` file
+
+- Create a script that will submit small-scale simulation through the slurm scheduler.
+- Later, we'll execute via the slurm command `sbatch estimateTheta.slm`.
+
+```{bash, eval=F}
+#!/bin/bash
+#SBATCH -n 1
+#SBATCH --mem=8GB
+Rscript ./estimateTheta.R 100 4444 > estimateTheta.Rout
+```
+
+## Check the queue status
+
+Before executing the script via the slurm command `sbatch estimateTheta.slm`, check the queue
+
+```{bash, eval=F}
+sinfo
+squeue -p fast
+```
+
+## Submitting via the command line 
+
+```{bash, eval=F}
+sbatch estimateTheta.slm
+```
+
+## Scale up the computation with a new `slm`
+
+```{bash, eval=F}
+#!/bin/bash
+#SBATCH -n 1
+#SBATCH --mem=8GB
+Rscript ./estimateTheta.R 1000000 44 > estimateTheta.Rout
+```
+
+```{bash, eval=F}
+sbatch estimateTheta.slm
+```
+
+## Check the progress in queue
+
+```{bash, eval=F}
+squeue -p fast
+squeue -u aschissler
+```
+
+## Check the output
+
+```{bash, eval=F}
+less estimateTheta.Rout
+```
+
+## Canceling jobs
+
+```{bash, eval=F}
+scancel <JOBID>
+scancel -u aschissler ## cancel all your jobs
+```
+
+# Workshop segment
+
+## Studies replicate and unit test your script
+
+1) Log onto okapi.
+2) Create `estimateTheta.R` and `estimateTheta.slm`
+3) Check the queue.
+4) Submit a small-scale unit test.
+5) Submit a larger-scale, more precise simulation.
+6) Check the queue as you go.
+7) Check the output.
+
+# III. Provide information to *scale* to embarrasingly large parallel simulations.
+
+- shell/bash scripting, `rslurm` `slurmR` to scale up
+- Check out the [sections](http://fractal.math.unr.edu/~okapi/#Submitting%20many%20Julia%20Jobs) on the Okapi the Server page
+- `conda`, `docker` `singularity` virtual environments
+
+## Scale up via `bash` scripting
+
+```{bash, eval=F}
+#!/bin/bash
+today=`date +%Y-%m-%d.%H:%M:%S`
+id=0
+echo "$today"
+
+for l in 15000 10000 1000 500 250 100 50 25 12
+do
+    for group in 0 1
+    do
+	id=$((id+1))
+	## id=$(echo $l-$k)
+	echo "working on pear"$id
+		echo "#!/bin/bash	
+#SBATCH -n 1
+#SBATCH --job-name="$id"
+#SBATCH --mem=4GB
+
+cd ~/Research/Mul_NB/brca_nb_pearson_vital
+
+time Rscript ./estimate_R_tcga_brca_nb_pearson_group.R "$l" "$group" " > "launch-"$id".slm"
+		chmod a+rx "launch-"$id".slm"
+		sbatch < "launch-"$id".slm"
+	    rm "launch-"$id".slm"
+    done
+done
+```
+
+## `rslurm`
+
+- `rslurm` [Getting Started](http://cyberhelp.sesync.org/rslurm/articles/rslurm.html) vignette to specify a job, submit a job, and inspect the results.
+- `rslurm` automates `slurm` scheduling for  embarrasingly large parallel jobs in the `R`programming language
+- Quick look at [Getting Started](http://cyberhelp.sesync.org/rslurm/articles/rslurm.html) vignette.
+
+## `slurmR`
+
+- `slurmR` is a light-weight wrapper to automate slurm jobs for USC Biostats. https://github.com/USCbiostats/slurmR
+
+## `conda`
+
+- [`conda`](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+- Python-based virtual environments 
+- Install packages/tools without `sudo`.
+- Some [tutorials](https://github.com/adknudson/okapi-demo/tree/master/tutorials) by Alex Knudson.
+
+# Conclusion
+
+## Concluding remarks
+
+### Summary of workflow
+
+1) Prototype your script.
+2) Unit test your script: first quick progressing to more intense.
+3) Deploy many jobs (emabarrasingly parallel) for comprehensive simulation settings.
+
+### Software used
+
+- Mac OSX / Linux  terminal  
+- MS Remote Desktop.
+- `slurm`. See [here](https://docs.rc.fas.harvard.edu/kb/convenient-slurm-commands/) for some convenient commands.
+-  `R`, `rmarkdown`, Rstudio, 
+
+<style>
+slides > slide { overflow: scroll; }
+slides > slide:not(.nobackground):before {
+  background: none;
+}
+</style>
+
+## Thank you for your attention and I hope you use the computing resources to do great research and teaching.
+
+- Questions?
