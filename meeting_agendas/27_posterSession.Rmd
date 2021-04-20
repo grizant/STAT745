@@ -1,0 +1,61 @@
+---
+title: "FINAL EXAM POSTER SESSION"
+subtitle: "STAT 745"
+author: "AG Schissler"
+date: "4 May 2021 (*updated: `r Sys.Date()`)*"
+output:
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r LoadLib, echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, results = "hide"}
+set.seed( 05042021 )
+library(tidyverse)
+library(printr)
+## xaringan::inf_mr('27_modernBayesianWorkflow.Rmd')
+## str(knitr::opts_chunk$get())
+```
+
+<!-- open up etext as you go. don't typeset the chapter -->
+
+# i. Week 15 Focus
+
+- Students receive and act on Ch.13,14 feedback.
+- Students apply computational methods to real world data (Final Exam/Poster).
+- Students present their preliminary Final Exam poster.
+
+## Today's plan
+
+i. Ch.13,14 HW feedback
+ii. Students present their preliminary Final Exam poster.
+
+*Please contribute questions and comments*
+
+## Ch.13,14 HW general feedback
+
+- 13.3 Efficient implementation a high dimension, computationally intense procedure.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
+- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
+- 14.1 Use the *simplex* algorithm to solve a small system of equations. Use `boot::simplex()`.
+
+# Poster presentations
+
+## Organization
+
+- The purpose is to discuss the projects and get feedback in time to make adjustments.
+- No one is judging or grading you. This is supposed to be fun and educational.
+- I will give you a participation grade for showing up prepared.
+- To organize, I'll divide into 3-4 groups in breakout rooms. Take turns sharing/discussing your work.
+- I'll bring everyone back together for general comments and closing.
+
+## Summary and closing
+
+- General feedback.
+ 
+## Closing
+
+- Thank you for a great semester!
+- I hope you feel confident that you can correctly apply/communicate the techniques from Rizzo.
+- I also hope that see the power of a computational approach to statistics.
+- Best wishes for your future.
