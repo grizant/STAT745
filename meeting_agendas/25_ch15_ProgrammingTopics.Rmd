@@ -21,11 +21,11 @@ library(printr)
 
 # i. Week 14 Focus
 
+- Students draft/edit Final Exam poster; topic should clearly defined and approved.
 - Students Practice on Ch.13,14 content.
 - Students receive and act on Ch.12 feedback.
 - Read Programming Topics Ch.15.
 - Discuss Ch.15.
-- Final Exam released and discussed.
 
 ## Today's plan
 
@@ -60,7 +60,6 @@ iii. Summarize Ch.15
 - 15.5 Finding source code
 - 15.6 Linking to C/C++ Code using `Rcpp`
 - 15.7 Application: Baseball data
-
 
 ## 15.1 Introduction
 
@@ -102,3 +101,5 @@ iii. Summarize Ch.15
 - Revisit HW.
 - Questions?
 - Students please summarize/ask questions about what we discussed today.
+- `Python` is a popular and capable language for stats `numpy`, `pandas`, etc. Great tool and more features/general use than `R`.
+- Try `Julia` for a high-performance, modern programming language with GPU acceleration, multi-core, JIT compiler, syntactic sugar, etc. 
