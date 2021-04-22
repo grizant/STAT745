@@ -26,6 +26,42 @@ library(printr)
 - Read Numerical Methods in R Ch. 13
 - Read Optimization Ch. 14
 - Discuss Ch. 13, 14
+- Release Final Exam.
+
+## Recall our Student Learning Outcomes
+
+Upon completion of this course, students will be able to:  
+
+1. organize and present information in graphical and numerical forms to support concise, comprehensible, and scientifically defensible written conclusions/knowledge to research problems.  
+2. create computational solutions to answer statistical questions for traditional and non-standard models using a high-level programming language.  
+3. organize computational research findings in a professional report suitable for presentation to a variety of audiences.  
+
+## Final Exam Introduction
+
+- I've assessed your skills on each topic via HW and midterms; Now I'd like you to apply your knowledge/skills to produce a scientific poster.
+- Let's discuss the rubric and guidelines (located in Canvas).
+- You may use powerpoint but it is possible using using `rmarkdown`. See `postr` or `posterdown`. See [https://gist.github.com/Pakillo/4854e5d760351206084f6be8abe476b2](https://gist.github.com/Pakillo/4854e5d760351206084f6be8abe476b2).
+- Let's look at a model poster: alex_k_bayes_freq_presentation.pdf. I would say it has a little too much prose for a poster. Bullet points are good. Nice viz and model.
+
+## Final Exam Introduction
+
+- Keep it simple, your project doesn't need to be complicated! I'm only given you a few weeks to limit the workload and see how well you can apply what you have learned.
+- Select or generate your topic/data early!
+- The most important thing is to convince me that that computational method(s) are more appropriate to answer your data analytic question than standard approaches you have seen in your other classes.
+- Use techniques from our textbook.
+- Examples: 
+  * Begin with or generate data that are non-normal and explore differences between a standard asymptotic or exact result with computational techiques like a bootstrap or permutation test.
+  * Build a MCMC sampler to conduct Bayesian inference on a data set, check your work.
+  * Compare/benchmark R functions that you create.
+  * Create a R package that does something useful and involves core concepts form (this could be a paper one day).
+  * Explore the advantage of comp methods for discrete vs continuous distributions.
+
+## Final Exam Introduction
+
+- Informal Zoom poster session on our last day 4 May 2021. This is mainly to get feedback from your peers and myself. This should result in catching any errors and polishing presentation.
+- The purpose is to discuss the projects and get feedback in time to make adjustments.
+- No one is judging or grading you. This is supposed to be fun and educational.
+- I will give replace your lowest HW grade with a participation grade for showing up prepared and being an active, respectful participant.
 
 ## Any questions on Ch.12 HW?
 
@@ -56,8 +92,8 @@ iii. Summarize, conclude, revisit Ch. 13 Problem prompt discussion / hints time 
 ## Ch.13 HW Preview/Hints
 
 - 13.3 Efficient implementation a high dimension, computationally intense procedure.
-- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
-- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|<k$.
+- 13.5 Computing critical values for a nonstandard statistical procedure (con'd). Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
 
 # 13.1 Introduction
 
