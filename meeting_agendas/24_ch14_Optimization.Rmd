@@ -21,13 +21,16 @@ library(printr)
 
 # i. Week 13 Focus
 
+- Students begin work on Final Exam. Let me know what you plan to do.
 - Students Practice on Ch.12 content.
 - Students receive and act on Ch. 11 feedback.
-- Read Numerical Methods in R Ch. 13
+- Read Numerical Methods in `R` Ch. 13
 - Read Optimization Ch. 14
 - Discuss Ch. 13, 14
 
 ## Any questions on Ch.12 HW?
+
+- Discussion: which "normal refererence rule" to use?
 
 - 12.1 Histogram estimation
 - 12.4 Frequency polygon density
@@ -37,13 +40,55 @@ library(printr)
 
 ## Today's plan
 
-i. Open with questions on Ch.14 Problem Set to prime learning.
-ii. Discuss Ch.14 Numerical Methods in R
-iii. Summarize, conclude, revisit Ch.14 Problem prompt discussion / hints time remaining
+i. Conclude Ch.13 Numerical Methods in R
+ii. Open with questions on Ch.14 Problem Set to prime learning.
+iii. Discuss Ch.14 Optimization
+iv. Summarize, conclude, revisit Ch.14 Problem prompt discussion / hints time remaining
 
 *Please contribute questions and comments*
 
+# Ch.13 con'd
+
+## Revisit Example 13.3
+
+```{r}
+k <- 100
+    system.time({
+        for (i in 1:1000) {
+            a <- rep(0, 24); a0 <- pi / 6; a2 <- a0 * a0
+            a[1] <- -a0^3 / 6
+            for (i in 2:k)
+                a[i] <- - a2 * a[i-1] / ((2*i+1)*(2*i))
+            a0 + sum(a)} })
+    system.time({
+        for (i in 1:1000) {
+            K <- 2 * (0:k) + 1
+            i <- rep(c(1, -1), length=(k+1))
+            sum(i * (pi/6)^K / factorial(K))}
+        })
+```
+
+## 13.2 Root-finding
+
+- WLOG we can focus on solving $f(x)=0$.
+- Two classes: first derivative needed or not.
+- In any event you must provide the function two endpoints where $f(\cdot)$ changing sign.
+- Brent's method explained briefly
+- Example 13.6
+- Example 13.7
+
+## Ch.13,14 HW Preview/Hints
+
+*Let me clarify my advice for 13.4, 13.5*
+
+- 13.3 Efficient implementation a high dimension, computationally intense procedure.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference. Plot the difference to find an interval that changes see. Then use `uniroot`.to find 1D root.  Note the function is well defined for $|a|=k$. Final hint: Use `pt()`.
+- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: Recognize that `a(k)` is the root from 13.4. Also please compute and report `c_k`.
+- 14.1 Use the *simplex* algorithm to solve a small system of equations. Use `boot::simplex()`.
+
 # Ch.14 Optimization
+
+*Focus is on implementation, not theory*.
 
 - 14.1 Introduction
 - 14.2 One-dimensional Optimization
@@ -51,15 +96,6 @@ iii. Summarize, conclude, revisit Ch.14 Problem prompt discussion / hints time r
 - 14.4 Two-dimensional Optimization
 - 14.5 The EM Algorithm
 - 14.6 Linear Programming --- The Simplex Method
-
-# I. Ch.14 HW Preview
-
-## Ch.13,14 HW Preview/Hints
-
-- 13.3 Efficient implementation a high dimension, computationally intense procedure.
-- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
-- 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
-- 14.1 Use the *simplex* algorithm to solve a small system of equations. Use `boot::simplex()`.
 
 ## 14.1 Introduction
 
