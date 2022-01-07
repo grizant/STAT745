@@ -3189,7 +3189,7 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">29 Apr 2021 (<em>updated: 2021-04-20)</em></p>
+            <p style="margin-top: 6px; margin-left: -2px;">29 Apr 2021 (<em>updated: 2021-04-29)</em></p>
           </hgroup>
   </slide>
 
@@ -3198,11 +3198,11 @@ slide:not(.current) .plotly.html-widget{
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>i. Week 14 Focus</h2></hgroup><article  id="i.-week-14-focus" class="smaller ">
 
 <ul>
+<li>Students work their final exam poster for Tueday 5/4 poster session.</li>
 <li>Students Practice on Ch.13,14 content.</li>
 <li>Students receive and act on Ch.12 feedback.</li>
-<li>Read Programming Topics Ch.15.</li>
-<li>Discuss Ch.15.</li>
-<li>Discuss statistical computing on remote servers.</li>
+<li>Read Programming Topics Ch.15 / Discuss Ch.15.</li>
+<li>Explore cluster computing on our remote server, Okapi.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Today’s plan</h2></hgroup><article  id="todays-plan" class="smaller ">
@@ -3217,10 +3217,10 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>i. Any questions on Ch.13,14 HW?</h2></hgroup><article  id="i.-any-questions-on-ch.1314-hw" class="smaller ">
 
 <ul>
-<li>13.3 Efficient implementation a high dimension, computationally intense procedure.</li>
-<li>13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for \(|a|=k\).</li>
-<li>13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.</li>
-<li>14.1 Use the <em>simplex</em> algorithm to solve a small system of equations. Use <code>boot::simplex()</code>.</li>
+<li>13.3 Efficient implementation a high dimension, computationally intense procedure. <strong>New hint</strong>: Depending on the functions you use you may want to creat <code>a</code> as a matrix object instead of a vector. There is a <code>lfactorial</code> and a <code>lgamma</code> use them! Design a stopping rule based on machine tolerance to compute the sum (this is better than just picking a large \(k\) value. You may want to check your answer with a peer (don’t copy their work) just in case you make a small error.</li>
+<li>13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for \(|a|=k\). <strong>New instruction</strong>: Please plot the difference graph to show how you selected the bounds in <code>uniroot</code>.</li>
+<li>13.5 Computing critical values for a nonstandard statistical procedure II. Hint: Notice the distribution functions appearing in the equation. How can you represent this in terms of CDFs? <strong>New instruction</strong>: Please plot the difference graph to show how you selected the bounds in <code>uniroot</code>.</li>
+<li>14.1 Use the <em>simplex</em> algorithm to solve a small system of equations. Use <code>boot::simplex()</code>. <strong>New instruction</strong>: the book asked to <em>minimize</em> the system of inequalities, but this can be done by inspection… Please instead <strong>maximize</strong>.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Cluster computing</h2></hgroup><article  id="cluster-computing" class="smaller ">

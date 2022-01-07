@@ -36,22 +36,29 @@ iii. Summarize Ch.15
 
 *Please contribute questions and comments*
 
-# i. Feedback from HW Ch.12
+## i. Projects
 
-## i. Feedback from HW Ch.12
+- How are things coming along?
+- Still looking for a project? Interesting paper just came out:
+*Iterative Likelihood: A Unified Inference Tool* Haiying Wang,Dixin Zhang,Hua Liang &David Ruppert
+- Brainstorm with anyone right now?
+- Discussion over email correspondence?
 
-- ???
+## ii. Feedback from HW Ch.12
 
-# ii. Ch.13,14 HW discussion
+- 12.1 Binwidths
+- 
+
+# iii. Ch.13,14 HW discussion
 
 ## Any questions on Ch.13,14 HW?
 
 - 13.3 Efficient implementation a high dimension, computationally intense procedure.
-- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a|=k$.
+- 13.4 Computing critical values for a nonstandard statistical procedure. Hint: work with the difference and find 1D root. Note the function is well defined for $|a| \leq k$.
 - 13.5 Computing critical values for a nonstandard statistical procedure II. Hint: connect to your answer from 13.4 by noticing the distribution functions appearing in the equation. How can you represent this in terms of CDFs? Then the calculation will be trivial.
 - 14.1 Use the *simplex* algorithm to solve a small system of equations. Use `boot::simplex()`.
 
-# iii. Ch.15 Programming Topics
+# iv. Ch.15 Programming Topics
 
 - 15.1 Introduction
 - 15.2 Benchmarking: Comparing execution time of code, `microbenchmark` package.
